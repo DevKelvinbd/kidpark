@@ -1,0 +1,3523 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kid Park — Reserve sua festa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --pool-deep:#075985;
+  --pool:#0891B2;
+  --aqua:#06B6D4;
+  --pool-light:#CFFAFE;
+  --sun:#F59E0B;
+  --sun-soft:#FEF3C7;
+  --coral:#F472B6;
+  --mint:#34D399;
+  --cream:#FFFBF3;
+  --bg:#F0F9FF;
+  --ink:#0C1F3A;
+  --ink-soft:#334155;
+  --mute:#64748B;
+  --line:#E0F2FE;
+  --line-strong:#BAE6FD;
+  --white:#FFFFFF;
+  --shadow-sm: 0 1px 2px rgba(7,89,133,.06), 0 1px 4px rgba(7,89,133,.04);
+  --shadow-md: 0 6px 16px -4px rgba(7,89,133,.15), 0 2px 6px rgba(7,89,133,.08);
+  --shadow-lg: 0 20px 40px -12px rgba(7,89,133,.25);
+  --radius-sm: 10px;
+  --radius: 18px;
+  --radius-lg: 28px;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, monospace;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img,video{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+a{color:inherit;text-decoration:none}
+
+/* ============ UTILITIES ============ */
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--pool);
+  font-weight:700;
+}
+.h-display{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-variation-settings:"opsz" 144, "SOFT" 50;
+  letter-spacing:-.02em;
+  line-height:1.05;
+  color:var(--ink);
+}
+
+/* ============ HEADER ============ */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(240,249,255,.85);
+  backdrop-filter:saturate(180%) blur(14px);
+  -webkit-backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  height:64px;
+}
+.logo{
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--font-display);
+  font-weight:900;
+  font-size:22px;
+  color:var(--pool-deep);
+  letter-spacing:-.01em;
+}
+.logo-mark{
+  width:34px;height:34px;
+  background:linear-gradient(135deg,var(--aqua),var(--pool-deep));
+  border-radius:10px;
+  display:grid;place-items:center;
+  color:white;font-size:18px;
+  box-shadow:var(--shadow-sm);
+}
+.nav-cta{
+  display:flex;align-items:center;gap:10px;
+}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 18px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:14px;
+  transition:transform .15s, box-shadow .15s, background .15s;
+  white-space:nowrap;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{
+  background:var(--ink);
+  color:white;
+  box-shadow:var(--shadow-sm);
+}
+.btn-primary:hover{background:var(--pool-deep);box-shadow:var(--shadow-md)}
+.btn-ghost{color:var(--ink-soft)}
+.btn-ghost:hover{color:var(--pool-deep)}
+.btn-sun{
+  background:var(--sun);color:var(--ink);
+  box-shadow:0 4px 0 #C2870A, var(--shadow-sm);
+}
+.btn-sun:hover{box-shadow:0 2px 0 #C2870A, var(--shadow-md);transform:translateY(1px)}
+
+/* ============ HERO ============ */
+.hero{
+  position:relative;
+  padding:48px 0 0;
+  overflow:hidden;
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.05fr 1fr;
+  gap:56px;
+  align-items:center;
+}
+.hero-copy h1{
+  font-size:clamp(40px, 6vw, 72px);
+  font-family:var(--font-display);
+  font-weight:900;
+  font-variation-settings:"opsz" 144, "SOFT" 100;
+  line-height:.98;
+  letter-spacing:-.025em;
+}
+.hero-copy h1 em{
+  font-style:italic;
+  color:var(--pool);
+  font-variation-settings:"opsz" 144, "SOFT" 100;
+}
+.hero-copy h1 .splash{
+  background:linear-gradient(180deg, transparent 60%, var(--sun-soft) 60%);
+  padding:0 4px;
+}
+.hero-lede{
+  margin-top:22px;
+  font-size:18px;
+  color:var(--ink-soft);
+  max-width:480px;
+}
+.hero-actions{
+  margin-top:32px;
+  display:flex;gap:14px;flex-wrap:wrap;
+}
+.hero-stats{
+  margin-top:40px;
+  display:flex;gap:32px;
+  padding-top:24px;
+  border-top:1px solid var(--line);
+}
+.hero-stat .num{
+  font-family:var(--font-mono);
+  font-size:24px;font-weight:700;
+  color:var(--pool-deep);
+}
+.hero-stat .lbl{
+  font-size:12px;color:var(--mute);
+  text-transform:uppercase;letter-spacing:.08em;
+}
+
+/* gallery — staggered photos */
+.hero-media{
+  position:relative;
+  height:560px;
+}
+.hero-card{
+  position:absolute;
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:var(--shadow-lg);
+  background:var(--pool-light);
+}
+.hero-card img, .hero-card video{
+  width:100%;height:100%;object-fit:cover;
+}
+.hero-card.c1{
+  top:0;left:0;width:62%;height:62%;
+  transform:rotate(-2deg);
+  z-index:2;
+}
+.hero-card.c2{
+  top:18%;right:0;width:50%;height:50%;
+  transform:rotate(3deg);
+  z-index:1;
+}
+.hero-card.c3{
+  bottom:0;left:18%;width:55%;height:42%;
+  transform:rotate(-1deg);
+  z-index:3;
+}
+.hero-card .empty{
+  width:100%;height:100%;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg, var(--pool-light), var(--aqua));
+  color:white;font-size:48px;
+}
+
+/* waves separator */
+.waves{
+  margin-top:60px;
+  width:100%;
+  display:block;
+  color:var(--white);
+}
+
+/* ============ HOW IT WORKS ============ */
+.how{
+  background:var(--white);
+  padding:64px 0 80px;
+}
+.section-head{
+  display:flex;align-items:end;justify-content:space-between;
+  gap:32px;margin-bottom:40px;
+  flex-wrap:wrap;
+}
+.section-head h2{
+  font-size:clamp(32px, 4vw, 48px);
+}
+.how-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+.how-card{
+  padding:32px 28px;
+  border-radius:var(--radius);
+  background:var(--bg);
+  border:1px solid var(--line);
+  position:relative;
+  transition:transform .2s, box-shadow .2s;
+}
+.how-card:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-md);
+}
+.how-num{
+  font-family:var(--font-mono);
+  font-size:13px;font-weight:700;
+  color:var(--coral);
+  margin-bottom:18px;
+}
+.how-card h3{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:22px;
+  margin-bottom:8px;
+  font-variation-settings:"opsz" 36, "SOFT" 50;
+}
+.how-card p{
+  color:var(--ink-soft);
+  font-size:15px;
+}
+.how-icon{
+  width:48px;height:48px;
+  border-radius:14px;
+  background:white;
+  display:grid;place-items:center;
+  font-size:24px;
+  margin-bottom:18px;
+  box-shadow:var(--shadow-sm);
+}
+
+/* ============ ITEMS ============ */
+.items{
+  padding:80px 0;
+  background:var(--bg);
+}
+.items-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+}
+.item-card{
+  background:var(--white);
+  border-radius:var(--radius);
+  overflow:hidden;
+  border:1px solid var(--line);
+  display:flex;flex-direction:column;
+  transition:transform .2s, box-shadow .2s, border-color .2s;
+  position:relative;
+}
+.item-card:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--shadow-md);
+  border-color:var(--line-strong);
+}
+.item-card.selected{
+  border-color:var(--pool);
+  box-shadow:0 0 0 3px rgba(8,145,178,.15), var(--shadow-md);
+}
+.item-card.is-package{
+  background:linear-gradient(155deg, #FFFBF3 0%, #FEF3C7 100%);
+}
+.item-media{
+  aspect-ratio:4/3;
+  background:linear-gradient(135deg, var(--pool-light), var(--aqua));
+  position:relative;
+  overflow:hidden;
+}
+.item-media img, .item-media video{
+  width:100%;height:100%;object-fit:cover;
+}
+.item-media .placeholder{
+  width:100%;height:100%;
+  display:grid;place-items:center;
+  font-size:48px;
+}
+.item-badge{
+  position:absolute;top:12px;left:12px;
+  background:var(--ink);color:white;
+  padding:5px 10px;border-radius:999px;
+  font-size:11px;font-weight:700;
+  letter-spacing:.04em;text-transform:uppercase;
+}
+.item-badge.pkg{background:var(--sun);color:var(--ink)}
+.item-body{
+  padding:20px;flex:1;
+  display:flex;flex-direction:column;
+}
+.item-name{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:20px;
+  margin-bottom:6px;
+  font-variation-settings:"opsz" 36, "SOFT" 50;
+}
+.item-desc{
+  color:var(--ink-soft);
+  font-size:14px;
+  margin-bottom:18px;
+  flex:1;
+}
+.item-foot{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;margin-top:auto;
+}
+.item-price{
+  font-family:var(--font-mono);
+  font-weight:700;
+  font-size:18px;
+  color:var(--pool-deep);
+}
+.item-price small{
+  font-size:11px;
+  color:var(--mute);
+  font-weight:400;
+  display:block;
+}
+.toggle-btn{
+  padding:9px 16px;border-radius:999px;
+  background:var(--ink);color:white;
+  font-weight:700;font-size:13px;
+  transition:background .15s;
+}
+.toggle-btn:hover{background:var(--pool-deep)}
+.toggle-btn.on{background:var(--mint);color:var(--ink)}
+.toggle-btn.on::before{content:"✓ "}
+
+/* ============ CART BAR ============ */
+.cart-bar{
+  position:fixed;bottom:0;left:0;right:0;
+  z-index:40;
+  background:var(--ink);
+  color:white;
+  padding:14px 0;
+  transform:translateY(100%);
+  transition:transform .25s ease;
+  box-shadow:0 -10px 30px rgba(7,31,58,.2);
+}
+.cart-bar.show{transform:translateY(0)}
+.cart-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:20px;flex-wrap:wrap;
+}
+.cart-info{
+  display:flex;align-items:center;gap:18px;
+}
+.cart-count{
+  background:var(--sun);color:var(--ink);
+  width:32px;height:32px;
+  border-radius:50%;
+  display:grid;place-items:center;
+  font-weight:800;font-size:14px;
+}
+.cart-total{
+  display:flex;flex-direction:column;
+}
+.cart-total .lbl{
+  font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.08em;
+}
+.cart-total .val{
+  font-family:var(--font-mono);
+  font-weight:700;
+  font-size:22px;
+}
+
+/* ============ CONTACT ============ */
+.contact{
+  padding:80px 0 100px;
+  background:var(--ink);
+  color:white;
+}
+.contact h2{
+  font-size:clamp(32px,4vw,48px);
+  color:white;
+  font-family:var(--font-display);
+  font-weight:900;
+  font-variation-settings:"opsz" 144, "SOFT" 100;
+}
+.contact .lede{
+  color:rgba(255,255,255,.7);
+  margin-top:16px;max-width:520px;
+}
+.contact-grid{
+  margin-top:48px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+.contact-card{
+  padding:24px;
+  border-radius:var(--radius);
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  transition:background .2s, transform .2s;
+  display:block;
+}
+.contact-card:hover{
+  background:rgba(255,255,255,.1);
+  transform:translateY(-2px);
+}
+.contact-card .ic{
+  font-size:28px;margin-bottom:14px;
+}
+.contact-card .lbl{
+  font-size:12px;
+  color:rgba(255,255,255,.5);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin-bottom:4px;
+}
+.contact-card .val{
+  font-weight:600;font-size:16px;
+}
+
+.footer{
+  padding:24px 0;
+  background:var(--ink);
+  border-top:1px solid rgba(255,255,255,.08);
+  color:rgba(255,255,255,.5);
+  font-size:13px;
+  text-align:center;
+}
+.footer a{color:rgba(255,255,255,.8);text-decoration:underline}
+
+/* ============ MODAL ============ */
+.modal{
+  position:fixed;inset:0;
+  background:rgba(12,31,58,.7);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  display:none;
+  align-items:flex-start;
+  justify-content:center;
+  z-index:100;
+  padding:24px;
+  overflow-y:auto;
+}
+.modal.show{display:flex}
+.modal-card{
+  background:var(--white);
+  border-radius:var(--radius-lg);
+  width:100%;
+  max-width:640px;
+  margin:24px auto;
+  overflow:hidden;
+  box-shadow:var(--shadow-lg);
+  animation:slideUp .3s ease;
+}
+.modal-card.wide{max-width:880px}
+@keyframes slideUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.modal-head{
+  padding:24px 28px;
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;background:white;z-index:2;
+}
+.modal-head h3{
+  font-family:var(--font-display);
+  font-weight:700;font-size:22px;
+  font-variation-settings:"opsz" 36, "SOFT" 50;
+}
+.modal-close{
+  width:36px;height:36px;
+  border-radius:50%;
+  background:var(--bg);
+  display:grid;place-items:center;
+  font-size:20px;font-weight:700;
+  color:var(--ink-soft);
+}
+.modal-close:hover{background:var(--line)}
+.modal-body{padding:28px}
+.modal-foot{
+  padding:20px 28px;
+  border-top:1px solid var(--line);
+  display:flex;gap:12px;justify-content:flex-end;
+  background:var(--bg);
+}
+
+/* ============ FORM ============ */
+.field{margin-bottom:18px}
+.field label{
+  display:block;
+  font-size:13px;font-weight:600;
+  margin-bottom:6px;color:var(--ink);
+}
+.field label .req{color:var(--coral)}
+.field input,.field select,.field textarea{
+  width:100%;
+  padding:12px 14px;
+  border:1.5px solid var(--line-strong);
+  border-radius:12px;
+  background:var(--white);
+  font-size:15px;
+  transition:border-color .15s, box-shadow .15s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+  outline:none;
+  border-color:var(--pool);
+  box-shadow:0 0 0 3px rgba(8,145,178,.15);
+}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.help{font-size:12px;color:var(--mute);margin-top:6px}
+
+/* ============ STEP INDICATOR ============ */
+.steps{
+  display:flex;align-items:center;gap:8px;
+  margin-bottom:24px;
+}
+.step-dot{
+  flex:1;height:4px;border-radius:2px;
+  background:var(--line);
+  transition:background .2s;
+}
+.step-dot.active{background:var(--pool)}
+.step-dot.done{background:var(--mint)}
+
+/* ============ CALENDAR ============ */
+.cal{
+  background:var(--bg);
+  border-radius:var(--radius);
+  padding:18px;
+}
+.cal-head{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:14px;
+}
+.cal-title{
+  font-family:var(--font-display);
+  font-weight:700;font-size:18px;
+  text-transform:capitalize;
+}
+.cal-nav{
+  width:36px;height:36px;border-radius:10px;
+  background:white;
+  display:grid;place-items:center;
+  font-weight:700;
+  box-shadow:var(--shadow-sm);
+}
+.cal-nav:hover{background:var(--pool);color:white}
+.cal-grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:6px;
+}
+.cal-wd{
+  font-size:11px;font-weight:700;
+  color:var(--mute);
+  text-align:center;
+  padding:6px 0;
+  text-transform:uppercase;
+}
+.cal-day{
+  aspect-ratio:1;
+  border-radius:10px;
+  background:white;
+  display:grid;place-items:center;
+  font-weight:600;font-size:14px;
+  transition:background .15s, color .15s;
+  position:relative;
+}
+.cal-day:hover{background:var(--pool-light)}
+.cal-day.other{color:var(--mute);background:transparent;opacity:.4}
+.cal-day.past{color:var(--mute);background:transparent;cursor:not-allowed;text-decoration:line-through}
+.cal-day.past:hover{background:transparent}
+.cal-day.blocked{background:#FEE2E2;color:#991B1B;cursor:not-allowed}
+.cal-day.blocked:hover{background:#FEE2E2}
+.cal-day.partial{background:#FEF3C7;color:#92400E}
+.cal-day.today{outline:2px solid var(--pool);outline-offset:-2px}
+.cal-day.selected{background:var(--pool);color:white}
+.cal-day .occ-dot{
+  position:absolute;bottom:4px;left:50%;transform:translateX(-50%);
+  width:5px;height:5px;border-radius:50%;
+  background:var(--coral);
+}
+.cal-legend{
+  display:flex;gap:14px;flex-wrap:wrap;
+  margin-top:16px;
+  font-size:12px;
+  color:var(--mute);
+}
+.cal-legend span{display:inline-flex;align-items:center;gap:6px}
+.cal-legend i{
+  width:10px;height:10px;border-radius:3px;display:inline-block;
+}
+
+/* ============ TIME SLOTS ============ */
+.slots{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:14px;
+}
+.slot{
+  padding:14px;
+  border:1.5px solid var(--line-strong);
+  border-radius:12px;
+  background:white;
+  text-align:center;
+  transition:all .15s;
+  cursor:pointer;
+}
+.slot:hover{border-color:var(--pool)}
+.slot.selected{
+  background:var(--pool);
+  color:white;
+  border-color:var(--pool);
+}
+.slot.disabled{
+  opacity:.4;cursor:not-allowed;
+  background:#FEE2E2;
+}
+.slot-name{font-weight:700;font-size:14px}
+.slot-time{font-size:12px;opacity:.8;margin-top:2px}
+
+/* ============ SUMMARY ============ */
+.summary{
+  background:var(--bg);
+  border-radius:var(--radius);
+  padding:22px;
+  margin-bottom:18px;
+}
+.summary-row{
+  display:flex;justify-content:space-between;
+  padding:10px 0;
+  font-size:14px;
+}
+.summary-row + .summary-row{border-top:1px dashed var(--line-strong)}
+.summary-row .k{color:var(--ink-soft)}
+.summary-row .v{font-weight:600;text-align:right}
+.summary-total{
+  margin-top:18px;
+  padding-top:18px;
+  border-top:2px solid var(--ink);
+  display:flex;justify-content:space-between;align-items:baseline;
+}
+.summary-total .k{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute)}
+.summary-total .v{
+  font-family:var(--font-mono);
+  font-weight:700;font-size:28px;
+  color:var(--ink);
+}
+
+/* ============ PIX ============ */
+.pix-card{
+  border:2px dashed var(--mint);
+  background:rgba(52,211,153,.06);
+  border-radius:var(--radius);
+  padding:20px;
+  margin-bottom:14px;
+}
+.pix-label{
+  font-size:11px;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--ink-soft);font-weight:700;
+  margin-bottom:8px;
+}
+.pix-key{
+  font-family:var(--font-mono);
+  font-size:14px;
+  word-break:break-all;
+  padding:10px 12px;
+  background:white;
+  border-radius:10px;
+  border:1px solid var(--line);
+  cursor:pointer;
+}
+.pix-key:hover{background:var(--bg)}
+.pix-meta{
+  margin-top:10px;
+  font-size:13px;color:var(--ink-soft);
+}
+.pix-qr{
+  text-align:center;
+  padding:14px;
+  background:white;
+  border-radius:14px;
+  border:1px solid var(--line);
+  margin-bottom:14px;
+}
+.pix-qr img{max-width:240px;margin:0 auto;border-radius:8px}
+.pix-warn{
+  background:#FEF3C7;
+  border:1px solid #FCD34D;
+  border-radius:12px;
+  padding:14px 16px;
+  margin-bottom:14px;
+  font-size:13px;
+  color:#78350F;
+}
+.pix-warn strong{font-weight:700}
+
+/* ============ ADMIN ============ */
+.admin-tabs{
+  display:flex;gap:4px;
+  margin-bottom:24px;
+  border-bottom:1px solid var(--line);
+  overflow-x:auto;
+}
+.admin-tab{
+  padding:12px 18px;
+  font-weight:600;font-size:14px;
+  color:var(--mute);
+  border-bottom:3px solid transparent;
+  margin-bottom:-1px;
+  white-space:nowrap;
+}
+.admin-tab.active{
+  color:var(--pool-deep);
+  border-bottom-color:var(--pool);
+}
+.admin-list{
+  display:flex;flex-direction:column;gap:10px;
+}
+.admin-row{
+  display:flex;align-items:center;gap:14px;
+  padding:12px;
+  background:var(--bg);
+  border-radius:12px;
+  border:1px solid var(--line);
+}
+.admin-row .thumb{
+  width:54px;height:54px;
+  border-radius:10px;
+  background:var(--pool-light);
+  background-size:cover;background-position:center;
+  flex-shrink:0;
+  display:grid;place-items:center;font-size:22px;
+}
+.admin-row .info{flex:1;min-width:0}
+.admin-row .nm{font-weight:700;font-size:14px}
+.admin-row .meta{font-size:12px;color:var(--mute);margin-top:2px}
+.admin-row .acts{display:flex;gap:6px}
+.icon-btn{
+  width:34px;height:34px;
+  border-radius:10px;
+  background:white;
+  display:grid;place-items:center;
+  font-size:14px;
+  border:1px solid var(--line);
+}
+.icon-btn:hover{background:var(--pool);color:white;border-color:var(--pool)}
+.icon-btn.danger:hover{background:#DC2626;border-color:#DC2626}
+
+.btn-block{
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  background:var(--ink);color:white;
+  font-weight:700;font-size:15px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn-block:hover{background:var(--pool-deep)}
+.btn-block.success{background:var(--mint);color:var(--ink)}
+.btn-block.success:hover{background:#10B981;color:white}
+.btn-secondary{
+  padding:11px 18px;border-radius:999px;
+  background:var(--bg);color:var(--ink-soft);
+  font-weight:600;font-size:14px;border:1px solid var(--line);
+}
+.btn-secondary:hover{background:var(--line)}
+.btn-danger{
+  padding:11px 18px;border-radius:999px;
+  background:#FEE2E2;color:#991B1B;
+  font-weight:600;font-size:14px;
+}
+.btn-danger:hover{background:#FECACA}
+
+/* ============ TOAST ============ */
+.toast{
+  position:fixed;
+  bottom:80px;left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:var(--ink);color:white;
+  padding:14px 22px;
+  border-radius:999px;
+  font-size:14px;font-weight:600;
+  box-shadow:var(--shadow-lg);
+  opacity:0;pointer-events:none;
+  transition:opacity .25s, transform .25s;
+  z-index:200;
+  max-width:90%;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.error{background:#DC2626}
+.toast.success{background:var(--mint);color:var(--ink)}
+
+/* ============ EMPTY ============ */
+.empty-state{
+  padding:40px 20px;
+  text-align:center;
+  color:var(--mute);
+  border:2px dashed var(--line-strong);
+  border-radius:14px;
+}
+.empty-state .ic{font-size:36px;margin-bottom:10px}
+
+/* ============ AGENDA LIST ============ */
+.booking-row{
+  padding:16px;
+  background:var(--bg);
+  border-radius:12px;
+  border:1px solid var(--line);
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:8px;
+}
+.booking-status{
+  width:10px;height:10px;border-radius:50%;
+  flex-shrink:0;
+}
+.booking-status.pending{background:var(--sun)}
+.booking-status.confirmed{background:var(--mint)}
+.booking-status.cancelled{background:#DC2626}
+.booking-info{flex:1;min-width:0}
+.booking-info .t{font-weight:700;font-size:14px}
+.booking-info .m{font-size:12px;color:var(--mute);margin-top:2px}
+.booking-pill{
+  font-size:11px;font-weight:700;
+  padding:4px 10px;border-radius:999px;
+  text-transform:uppercase;letter-spacing:.04em;
+}
+.booking-pill.pending{background:var(--sun-soft);color:#78350F}
+.booking-pill.confirmed{background:#D1FAE5;color:#065F46}
+.booking-pill.cancelled{background:#FEE2E2;color:#991B1B}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 900px){
+  .hero-grid{grid-template-columns:1fr;gap:30px}
+  .hero-media{height:380px}
+  .how-grid{grid-template-columns:1fr;gap:14px}
+  .items-grid{grid-template-columns:1fr 1fr;gap:14px}
+  .contact-grid{grid-template-columns:1fr 1fr}
+  .section-head{margin-bottom:24px}
+}
+@media (max-width: 560px){
+  .items-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .hero-copy h1{font-size:42px}
+  .field-row{grid-template-columns:1fr}
+  .slots{grid-template-columns:1fr}
+  .modal{padding:0}
+  .modal-card{margin:0;border-radius:0;min-height:100vh}
+  .hero-stats{flex-wrap:wrap;gap:20px}
+}
+
+/* Print styles for receipt */
+@media print{
+  body * {visibility:hidden}
+  #printArea, #printArea *{visibility:visible}
+  #printArea{position:absolute;left:0;top:0;width:100%}
+  .no-print{display:none !important}
+}
+/* ===== CONTRATO ===== */
+.contract-doc{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:22px 24px;
+  font-size:13px;
+  line-height:1.55;
+  color:#1a2332;
+  max-height:50vh;
+  overflow-y:auto;
+}
+.contract-doc h2{
+  text-align:center;
+  font-family:var(--font-display);
+  font-size:22px;
+  margin:0 0 18px;
+  font-weight:700;
+  text-decoration:underline;
+}
+.contract-doc .party{
+  margin-bottom:14px;
+  font-size:13px;
+}
+.contract-doc .party strong{display:inline-block;min-width:120px}
+.contract-doc ol{padding-left:22px;margin:14px 0 0}
+.contract-doc ol li{margin-bottom:12px;text-align:justify}
+.contract-doc .terms-list{counter-reset:item}
+.contract-doc .place-footer{
+  text-align:center;margin-top:22px;padding-top:14px;border-top:1px solid var(--line);
+  font-size:12px;color:var(--mute);
+}
+.signature-box{
+  background:linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  border:2px solid #6ee7b7;
+  border-radius:14px;
+  padding:14px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-top:18px;
+}
+.signature-box .badge-top{
+  font-size:11px;font-weight:700;color:#065f46;
+  text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;
+}
+.signature-box .photo{
+  width:78px;height:78px;border-radius:50%;
+  background:#fff;border:2px solid #6ee7b7;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;flex-shrink:0;
+  font-size:32px;color:#9ca3af;
+}
+.signature-box .photo img{width:100%;height:100%;object-fit:cover}
+.signature-box .info{flex:1;font-size:12px}
+.signature-box .info .name{font-weight:700;font-size:15px;color:#065f46}
+.signature-box .info .meta{color:#047857;margin-top:2px}
+.signature-box .stamp{
+  border:1.5px solid #059669;color:#059669;
+  padding:6px 12px;border-radius:20px;
+  font-size:11px;font-weight:700;letter-spacing:.5px;
+}
+
+/* ===== CÂMERA ===== */
+.camera-stage{
+  background:#000;
+  border-radius:14px;
+  overflow:hidden;
+  position:relative;
+  aspect-ratio:4/3;
+  max-width:480px;
+  margin:0 auto 14px;
+}
+.camera-stage video, .camera-stage img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transform:scaleX(-1); /* espelhado, fica mais natural pra selfie */
+}
+.camera-stage img.captured{transform:none} /* foto final não fica espelhada */
+.camera-overlay{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:14px;text-align:center;padding:20px;
+  background:rgba(0,0,0,.4);pointer-events:none;
+}
+.camera-tip{
+  text-align:center;color:var(--mute);font-size:12px;margin:0 0 14px;
+}
+</style>
+<!-- Bibliotecas para gerar PDF do contrato -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+</head>
+<body>
+
+<!-- ============ TOPBAR ============ -->
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="logo">
+      <div class="logo-mark" id="logoMark">🏊</div>
+      <span id="brandName">Kid Park</span>
+    </div>
+    <nav class="nav-cta">
+      <button class="btn btn-ghost" onclick="scrollToSection('items')">Espaços</button>
+      <button class="btn btn-ghost" onclick="scrollToSection('contact')">Contato</button>
+      <button class="btn btn-primary" onclick="openBooking()">📅 Reservar</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">Espaço de festas em Madalena · CE</div>
+        <h1 style="margin-top:14px">
+          A festa começa na <em>água</em>.<br>
+          <span class="splash">Termina na</span> memória.
+        </h1>
+        <p class="hero-lede" id="heroLede">
+          Duas piscinas, salão amplo, cozinha equipada e estrutura completa pra você só se preocupar com os convidados.
+        </p>
+        <div class="hero-actions">
+          <button class="btn btn-sun" onclick="openBooking()" style="padding:14px 24px;font-size:15px">
+            📅 Reservar minha data
+          </button>
+          <button class="btn btn-ghost" onclick="scrollToSection('items')" style="padding:14px 24px;font-size:15px">
+            Ver espaços ↓
+          </button>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="num" id="stat1">2</div>
+            <div class="lbl">Piscinas</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num" id="stat2">120</div>
+            <div class="lbl">Convidados</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num" id="stat3">8h</div>
+            <div class="lbl">de festa</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-media" id="heroMedia">
+        <!-- preenchido dinamicamente -->
+      </div>
+    </div>
+  </div>
+
+  <svg class="waves" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="currentColor" d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z"></path>
+  </svg>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Como funciona</div>
+        <h2 class="h-display" style="margin-top:8px">Três passos. Festa garantida.</h2>
+      </div>
+    </div>
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="how-icon" id="howIcon1">🗓️</div>
+        <div class="how-num">PASSO 01</div>
+        <h3>Escolha a data</h3>
+        <p>Veja o calendário em tempo real e clique numa data livre. Diurno, tarde/noite ou dia inteiro — você decide.</p>
+      </div>
+      <div class="how-card">
+        <div class="how-icon" id="howIcon2">🎉</div>
+        <div class="how-num">PASSO 02</div>
+        <h3>Monte seu combo</h3>
+        <p>Salão, piscinas, som, freezer, fogão… escolha o que precisa. O total atualiza na hora.</p>
+      </div>
+      <div class="how-card">
+        <div class="how-icon" id="howIcon3">💳</div>
+        <div class="how-num">PASSO 03</div>
+        <h3>Pague por PIX</h3>
+        <p>Recebe a chave e o QR Code. Após o comprovante no WhatsApp, sua data está reservada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ITEMS ============ -->
+<section class="items" id="items">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Pacotes & Espaços</div>
+        <h2 class="h-display" style="margin-top:8px">Escolha o que combina com sua festa</h2>
+      </div>
+      <button class="btn btn-primary" onclick="openBooking()" style="padding:14px 22px">
+        Reservar agora →
+      </button>
+    </div>
+
+    <div id="itemsGrid" class="items-grid">
+      <!-- preenchido dinamicamente -->
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="eyebrow" style="color:var(--sun)">Vamos conversar</div>
+    <h2 style="margin-top:10px">Fale com a gente.</h2>
+    <p class="lede">Dúvida sobre data, capacidade, decoração? Chama no WhatsApp ou mande DM no Instagram.</p>
+    <div class="contact-grid" id="contactGrid">
+      <!-- preenchido dinamicamente -->
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    © <span id="thisYear"></span> Kid Park · Reservas online ·
+    <a href="#" onclick="event.preventDefault();openAdminLogin()">Admin</a>
+  </div>
+</footer>
+
+<!-- ============ CART BAR ============ -->
+<div class="cart-bar" id="cartBar">
+  <div class="wrap cart-inner">
+    <div class="cart-info">
+      <div class="cart-count" id="cartCount">0</div>
+      <div class="cart-total">
+        <span class="lbl">Total estimado</span>
+        <span class="val" id="cartTotal">R$ 0</span>
+      </div>
+    </div>
+    <button class="btn btn-sun" onclick="openBooking()" style="padding:13px 22px;font-size:15px">
+      Continuar reserva →
+    </button>
+  </div>
+</div>
+
+<!-- ============ BOOKING MODAL ============ -->
+<div class="modal" id="bookingModal">
+  <div class="modal-card wide">
+    <div class="modal-head">
+      <h3 id="bookingTitle">Reservar Kid Park</h3>
+      <button class="modal-close" onclick="closeModal('bookingModal')">×</button>
+    </div>
+    <div class="modal-body" id="bookingBody">
+      <!-- conteúdo dinâmico por etapa -->
+    </div>
+  </div>
+</div>
+
+<!-- ============ ADMIN LOGIN MODAL ============ -->
+<div class="modal" id="adminLoginModal">
+  <div class="modal-card" style="max-width:420px">
+    <div class="modal-head">
+      <h3>Acesso administrativo</h3>
+      <button class="modal-close" onclick="closeModal('adminLoginModal')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label>Senha</label>
+        <input type="password" id="adminPassInput" placeholder="••••••••" autocomplete="off">
+        <div class="help">Senha padrão: <code>kidpark2026</code> — altere em Configurações.</div>
+      </div>
+      <button class="btn-block" onclick="tryAdminLogin()">Entrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ADMIN MODAL ============ -->
+<div class="modal" id="adminModal">
+  <div class="modal-card wide">
+    <div class="modal-head">
+      <h3>Painel — Kid Park</h3>
+      <button class="modal-close" onclick="closeModal('adminModal')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-tab="itens" onclick="switchAdminTab('itens')">📦 Itens</button>
+        <button class="admin-tab" data-tab="galeria" onclick="switchAdminTab('galeria')">📸 Galeria</button>
+        <button class="admin-tab" data-tab="icones" onclick="switchAdminTab('icones')">🎨 Ícones</button>
+        <button class="admin-tab" data-tab="pix" onclick="switchAdminTab('pix')">💳 PIX</button>
+        <button class="admin-tab" data-tab="agenda" onclick="switchAdminTab('agenda')">📅 Agenda</button>
+        <button class="admin-tab" data-tab="config" onclick="switchAdminTab('config')">⚙️ Configurações</button>
+      </div>
+      <div id="adminTabContent"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ITEM EDIT MODAL ============ -->
+<div class="modal" id="itemEditModal">
+  <div class="modal-card" style="max-width:560px">
+    <div class="modal-head">
+      <h3 id="itemEditTitle">Adicionar item</h3>
+      <button class="modal-close" onclick="closeModal('itemEditModal')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label>Nome <span class="req">*</span></label>
+        <input id="iemNome" placeholder="Ex.: Salão + 2 piscinas">
+      </div>
+      <div class="field">
+        <label>Descrição curta</label>
+        <textarea id="iemDesc" rows="2" placeholder="Ex.: Salão amplo com as duas piscinas, perfeito pra festas grandes."></textarea>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Preço (R$) <span class="req">*</span></label>
+          <input id="iemPreco" type="number" min="0" step="0.01" placeholder="350.00">
+        </div>
+        <div class="field">
+          <label>Unidade</label>
+          <select id="iemUnidade">
+            <option value="diaria">por diária</option>
+            <option value="hora">por hora</option>
+            <option value="unidade">por unidade</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Categoria</label>
+        <select id="iemCategoria">
+          <option value="pacote">📦 Pacote (destaque)</option>
+          <option value="espaco">🏊 Espaço</option>
+          <option value="equipamento">🔌 Equipamento</option>
+          <option value="extra">✨ Extra</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Imagem (URL ou arquivo)</label>
+        <input id="iemImagemUrl" placeholder="https://… ou clique abaixo para enviar">
+        <input id="iemImagemFile" type="file" accept="image/*" style="margin-top:8px">
+        <div class="help">Cole uma URL ou envie uma imagem (será convertida para uso local).</div>
+      </div>
+      <div class="field">
+        <label>Vídeo (URL do YouTube/MP4) — opcional</label>
+        <input id="iemVideoUrl" placeholder="https://youtube.com/...">
+      </div>
+      <div class="field">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+          <input id="iemAtivo" type="checkbox" checked style="width:auto"> Disponível para reserva
+        </label>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-secondary" onclick="closeModal('itemEditModal')">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveItem()">Salvar item</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TOAST ============ -->
+<div class="toast" id="toast"></div>
+
+<!-- ============ MODAL CONTRATO ============ -->
+<div class="modal" id="contractModal">
+  <div class="modal-card" style="max-width:760px">
+    <div class="modal-head">
+      <h3>Termo de Responsabilidade / Contrato</h3>
+      <button class="modal-close" onclick="closeContractModal()">×</button>
+    </div>
+    <div class="modal-body" id="contractBody">
+      <!-- preenchido dinamicamente -->
+    </div>
+  </div>
+</div>
+
+<!-- ============ PRINT AREA (hidden) ============ -->
+<div id="printArea" style="display:none"></div>
+
+<script>
+/* =========================================================
+   KID PARK — APP STATE + STORAGE
+   ========================================================= */
+const LS_KEY = 'kidpark_v1';
+
+// Default seed data (admin pode editar tudo)
+const DEFAULT_STATE = {
+  config: {
+    brandName: 'Kid Park',
+    heroLede: 'Duas piscinas, salão amplo, cozinha equipada e estrutura completa pra você só se preocupar com os convidados.',
+    stat1: '2', stat1lbl: 'Piscinas',
+    stat2: '120', stat2lbl: 'Convidados',
+    stat3: '8h', stat3lbl: 'de festa',
+    whatsapp: '5585999999999',
+    whatsappLabel: '(85) 99999-9999',
+    instagram: 'https://instagram.com/kidpark',
+    instagramLabel: '@kidpark',
+    youtube: 'https://youtube.com/@kidpark',
+    youtubeLabel: '@kidpark',
+    email: 'contato@kidpark.com.br',
+    endereco: 'Av. das Festas, 100 — Madalena, CE',
+    adminPass: 'kidpark2026',
+    backendUrl: '', // Apps Script Web App URL — preencha em Configurações
+    horaInicioManha: '08:00', horaFimManha: '17:00',
+    horaInicioTarde: '12:00', horaFimTarde: '00:00',
+    horaInicioDia: '08:00', horaFimDia: '00:00',
+    precoHoraExtra: 100, // R$ por hora extra (configurável)
+    // Ícones personalizáveis — se url vazio, usa o emoji default
+    icones: {
+      logo:        { def:'🏊',  url:'' },
+      step1:       { def:'🗓️',  url:'' },
+      step2:       { def:'🎉',  url:'' },
+      step3:       { def:'💳',  url:'' },
+      contactWA:   { def:'💬',  url:'' },
+      contactIG:   { def:'📷',  url:'' },
+      contactYT:   { def:'▶️',  url:'' },
+      contactAddr: { def:'📍',  url:'' },
+      catPacote:   { def:'📦',  url:'' },
+      catEspaco:   { def:'🏊',  url:'' },
+      catEquip:    { def:'🔌',  url:'' },
+      catExtra:    { def:'✨',  url:'' },
+      heroEmpty1:  { def:'🏊',  url:'' },
+      heroEmpty2:  { def:'🎈',  url:'' },
+      heroEmpty3:  { def:'🎂',  url:'' },
+    },
+  },
+  pix: {
+    chave: '',
+    nomeBeneficiario: '',
+    banco: '',
+    qrUrl: '',         // URL externa OU base64
+    qrBase64: '',      // upload base64
+  },
+  gallery: [
+    // {tipo: 'image'|'video', url: '...'}
+  ],
+  items: [
+    {
+      id: 'pkg1', nome: 'Plano 1 · Salão', categoria: 'pacote',
+      desc: 'Salão amplo, sem piscinas. Ideal pra reuniões e festas menores.',
+      preco: 450, unidade: 'diaria', ativo: true, imagemUrl: '',
+    },
+    {
+      id: 'pkg2', nome: 'Plano 2 · Salão + 2 piscinas', categoria: 'pacote',
+      desc: 'A festa completa: salão com as duas piscinas liberadas.',
+      preco: 800, unidade: 'diaria', ativo: true, imagemUrl: '',
+    },
+    {
+      id: 'pkg3', nome: 'Plano 3 · Tudo incluso', categoria: 'pacote',
+      desc: 'Salão + piscinas + mesas, cadeiras, som, fogão e freezer.',
+      preco: 1200, unidade: 'diaria', ativo: true, imagemUrl: '',
+    },
+    {
+      id: 'esp1', nome: 'Mesas e cadeiras', categoria: 'equipamento',
+      desc: '10 mesas + 60 cadeiras de plástico, prontas para o evento.',
+      preco: 120, unidade: 'diaria', ativo: true, imagemUrl: '',
+    },
+    {
+      id: 'esp2', nome: 'Som ambiente', categoria: 'equipamento',
+      desc: 'Caixa de som amplificada com microfone e cabo auxiliar.',
+      preco: 150, unidade: 'diaria', ativo: true, imagemUrl: '',
+    },
+    {
+      id: 'esp3', nome: 'Fogão + botijão', categoria: 'equipamento',
+      desc: 'Fogão de 4 bocas com gás incluso. Pronto pra cozinhar no local.',
+      preco: 80, unidade: 'diaria', ativo: true, imagemUrl: '',
+    },
+    {
+      id: 'esp4', nome: 'Freezer', categoria: 'equipamento',
+      desc: 'Freezer 300L pra bebidas e gelo. Liga e usa.',
+      preco: 70, unidade: 'diaria', ativo: true, imagemUrl: '',
+    },
+  ],
+  bookings: [
+    // {id, data, slot, items:[{id,nome,preco}], total, cliente:{nome,tel,obs}, status, createdAt}
+  ],
+  blockedDates: [
+    // 'YYYY-MM-DD'
+  ],
+};
+
+let state = loadState();
+let cart = {}; // {itemId: true}
+let bookingStep = 1;
+let bookingData = {
+  date: null,    // 'YYYY-MM-DD'
+  slot: null,    // 'manha' | 'tarde' | 'dia'
+  horasExtras: 0,
+  itemIds: [],
+  cliente: { nome:'', tel:'', cpf:'', nascimento:'', endereco:'', evento:'', obs:'' },
+};
+let calCursor = new Date(); // mês visualizado no calendário
+let adminLogged = false;
+let editingItemId = null;
+
+/* =========================================================
+   ÍCONES — helper para renderizar emoji default ou imagem custom
+   ========================================================= */
+function iconHtml(key, opts){
+  opts = opts || {};
+  const ic = (state.config.icones && state.config.icones[key]) || {};
+  const size = opts.size || '1em';
+  const cls = opts.cls || '';
+  if(ic.url){
+    return `<img src="${escapeHtml(ic.url)}" alt="" class="kp-icon ${cls}" style="width:${size};height:${size};object-fit:contain;vertical-align:middle;display:inline-block">`;
+  }
+  return `<span class="kp-icon ${cls}" style="font-size:${size};line-height:1">${ic.def||'•'}</span>`;
+}
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(LS_KEY);
+    if(!raw) return JSON.parse(JSON.stringify(DEFAULT_STATE));
+    const parsed = JSON.parse(raw);
+    // merge cuidadoso com defaults (caso novas chaves apareçam)
+    const merged = {
+      ...DEFAULT_STATE,
+      ...parsed,
+      config: {...DEFAULT_STATE.config, ...(parsed.config||{})},
+      pix: {...DEFAULT_STATE.pix, ...(parsed.pix||{})},
+    };
+    // merge profundo dos ícones (caso o usuário tenha config antiga sem o objeto icones)
+    merged.config.icones = {...DEFAULT_STATE.config.icones, ...((parsed.config&&parsed.config.icones)||{})};
+    for(const k in DEFAULT_STATE.config.icones){
+      merged.config.icones[k] = {...DEFAULT_STATE.config.icones[k], ...(merged.config.icones[k]||{})};
+    }
+    return merged;
+  }catch(e){
+    return JSON.parse(JSON.stringify(DEFAULT_STATE));
+  }
+}
+function saveState(){
+  try{
+    localStorage.setItem(LS_KEY, JSON.stringify(state));
+  }catch(e){
+    toast('Não foi possível salvar local. Espaço cheio?','error');
+  }
+  syncCatalogToBackend(); // tenta empurrar para o Apps Script (não bloqueante)
+}
+
+/* =========================================================
+   UTIL
+   ========================================================= */
+function $(s){return document.querySelector(s)}
+function $$(s){return document.querySelectorAll(s)}
+function uid(p='ID'){return p+'-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7)}
+function fmtMoney(n){
+  return 'R$ ' + (Number(n)||0).toLocaleString('pt-BR',{minimumFractionDigits:0, maximumFractionDigits:0});
+}
+function fmtMoneyFull(n){
+  return (Number(n)||0).toLocaleString('pt-BR',{minimumFractionDigits:2, maximumFractionDigits:2});
+}
+function todayStr(){
+  const d = new Date();
+  return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+}
+function pad(n){return String(n).padStart(2,'0')}
+function dateBR(ymd){
+  if(!ymd) return '';
+  const [y,m,d] = ymd.split('-').map(Number);
+  const dt = new Date(y, m-1, d);
+  return dt.toLocaleDateString('pt-BR',{weekday:'long', day:'2-digit', month:'long', year:'numeric'});
+}
+function dateShort(ymd){
+  if(!ymd) return '';
+  const [y,m,d] = ymd.split('-').map(Number);
+  return `${pad(d)}/${pad(m)}/${y}`;
+}
+function slotLabel(s){
+  if(s==='manha') return `Diurno (${state.config.horaInicioManha}–${state.config.horaFimManha})`;
+  if(s==='tarde') return `Tarde/Noite (${state.config.horaInicioTarde}–${state.config.horaFimTarde})`;
+  if(s==='dia')   return `Dia inteiro (${state.config.horaInicioDia}–${state.config.horaFimDia})`;
+  return s||'';
+}
+function escapeHtml(s){
+  return String(s||'').replace(/[&<>"']/g, c=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+
+function toast(msg, kind='info'){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (kind==='error'?' error':kind==='success'?' success':'');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(()=>{ t.className='toast' }, 3000);
+}
+
+function openModal(id){
+  $(`#${id}`).classList.add('show');
+  document.body.style.overflow='hidden';
+}
+function closeModal(id){
+  $(`#${id}`).classList.remove('show');
+  document.body.style.overflow='';
+}
+function scrollToSection(id){
+  $(`#${id}`)?.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* =========================================================
+   BACKEND (Apps Script Web App) — opcional
+   Se config.backendUrl preenchida, sincroniza.
+   ========================================================= */
+async function backendCall(action, payload={}){
+  const url = state.config.backendUrl;
+  if(!url) return null;
+  try{
+    const res = await fetch(url, {
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'}, // evita preflight CORS
+      body: JSON.stringify({action, payload}),
+    });
+    return await res.json();
+  }catch(e){
+    console.warn('Backend offline:', e.message);
+    return null;
+  }
+}
+
+async function syncCatalogToBackend(){
+  // empurra catálogo + datas bloqueadas (não bloqueia UI)
+  const url = state.config.backendUrl;
+  if(!url) return;
+  backendCall('saveCatalog', {
+    items: state.items,
+    blockedDates: state.blockedDates,
+    config: state.config,
+    pix: state.pix,
+    gallery: state.gallery,
+  });
+}
+
+async function loadFromBackend(){
+  const url = state.config.backendUrl;
+  if(!url) return;
+  const res = await backendCall('getCatalog');
+  if(res && res.ok && res.data){
+    // só sobrescreve se houver dados válidos no backend
+    const remote = res.data;
+    if(remote.items?.length) state.items = remote.items;
+    if(remote.gallery?.length) state.gallery = remote.gallery;
+    if(remote.config) state.config = {...state.config, ...remote.config};
+    if(remote.pix) state.pix = {...state.pix, ...remote.pix};
+    if(remote.blockedDates) state.blockedDates = remote.blockedDates;
+    if(remote.bookings) state.bookings = remote.bookings;
+    saveLocalOnly();
+    renderAll();
+  }
+}
+function saveLocalOnly(){
+  try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); }catch(e){}
+}
+
+/* =========================================================
+   RENDERIZAÇÃO INICIAL
+   ========================================================= */
+function renderAll(){
+  $('#brandName').textContent = state.config.brandName;
+  $('#heroLede').textContent = state.config.heroLede;
+  $('#stat1').textContent = state.config.stat1;
+  $('#stat2').textContent = state.config.stat2;
+  $('#stat3').textContent = state.config.stat3;
+  $('#thisYear').textContent = new Date().getFullYear();
+  // Logo do topbar
+  const logoEl = $('#logoMark');
+  if(logoEl) logoEl.innerHTML = iconHtml('logo',{size:'24px'});
+  // Ícones "Como funciona"
+  const h1 = $('#howIcon1'); if(h1) h1.innerHTML = iconHtml('step1',{size:'40px'});
+  const h2 = $('#howIcon2'); if(h2) h2.innerHTML = iconHtml('step2',{size:'40px'});
+  const h3 = $('#howIcon3'); if(h3) h3.innerHTML = iconHtml('step3',{size:'40px'});
+  renderHeroMedia();
+  renderItems();
+  renderContact();
+  updateCartBar();
+}
+
+function renderHeroMedia(){
+  const wrap = $('#heroMedia');
+  const slots = ['c1','c2','c3'];
+  const heroKeys = ['heroEmpty1','heroEmpty2','heroEmpty3'];
+  const gal = state.gallery.slice(0,3);
+  wrap.innerHTML = slots.map((cls,i)=>{
+    const g = gal[i];
+    if(!g){
+      return `<div class="hero-card ${cls}"><div class="empty">${iconHtml(heroKeys[i],{size:'72px'})}</div></div>`;
+    }
+    if(g.tipo==='video'){
+      return `<div class="hero-card ${cls}"><video src="${escapeHtml(g.url)}" muted loop autoplay playsinline></video></div>`;
+    }
+    return `<div class="hero-card ${cls}"><img src="${escapeHtml(g.url)}" alt="Kid Park" loading="lazy"></div>`;
+  }).join('');
+}
+
+function renderItems(){
+  const grid = $('#itemsGrid');
+  const ativos = state.items.filter(i => i.ativo);
+  if(!ativos.length){
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="ic">📦</div>Nenhum item cadastrado ainda.<br>O admin pode adicionar pelo painel.</div>`;
+    return;
+  }
+  // ordenar: pacotes primeiro
+  const ordem = {pacote:0, espaco:1, equipamento:2, extra:3};
+  ativos.sort((a,b)=>(ordem[a.categoria]??9)-(ordem[b.categoria]??9));
+  grid.innerHTML = ativos.map(it => {
+    const sel = cart[it.id] ? 'selected' : '';
+    const isPkg = it.categoria==='pacote';
+    let mediaHtml;
+    if(it.imagemUrl){
+      mediaHtml = `<img src="${escapeHtml(it.imagemUrl)}" alt="${escapeHtml(it.nome)}" loading="lazy">`;
+    } else {
+      const keyMap = {pacote:'catPacote', espaco:'catEspaco', equipamento:'catEquip', extra:'catExtra'};
+      const key = keyMap[it.categoria] || 'catExtra';
+      mediaHtml = `<div class="placeholder">${iconHtml(key,{size:'72px'})}</div>`;
+    }
+    return `
+      <div class="item-card ${sel} ${isPkg?'is-package':''}" data-id="${it.id}">
+        <div class="item-media">
+          ${isPkg ? '<span class="item-badge pkg">★ Pacote</span>' : ''}
+          ${mediaHtml}
+        </div>
+        <div class="item-body">
+          <div class="item-name">${escapeHtml(it.nome)}</div>
+          <div class="item-desc">${escapeHtml(it.desc||'')}</div>
+          <div class="item-foot">
+            <div class="item-price">
+              ${fmtMoney(it.preco)}
+              <small>${it.unidade==='hora'?'por hora':it.unidade==='unidade'?'por unidade':'por diária'}</small>
+            </div>
+            <button class="toggle-btn ${cart[it.id]?'on':''}" onclick="toggleCart('${it.id}')">
+              ${cart[it.id]?'Selecionado':'Adicionar'}
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderContact(){
+  const c = state.config;
+  const items = [
+    c.whatsapp ? {key:'contactWA', lbl:'WhatsApp', val:c.whatsappLabel||c.whatsapp, href:`https://wa.me/${c.whatsapp.replace(/\D/g,'')}`} : null,
+    c.instagram ? {key:'contactIG', lbl:'Instagram', val:c.instagramLabel||'@kidpark', href:c.instagram} : null,
+    c.youtube ? {key:'contactYT', lbl:'YouTube', val:c.youtubeLabel||'@kidpark', href:c.youtube} : null,
+    c.endereco ? {key:'contactAddr', lbl:'Endereço', val:c.endereco, href:`https://maps.google.com/?q=${encodeURIComponent(c.endereco)}`} : null,
+  ].filter(Boolean);
+  $('#contactGrid').innerHTML = items.map(it=>`
+    <a href="${escapeHtml(it.href)}" target="_blank" rel="noopener" class="contact-card">
+      <div class="ic">${iconHtml(it.key,{size:'42px'})}</div>
+      <div class="lbl">${it.lbl}</div>
+      <div class="val">${escapeHtml(it.val)}</div>
+    </a>
+  `).join('');
+}
+
+/* =========================================================
+   CARRINHO (seleção rápida na home)
+   ========================================================= */
+function toggleCart(itemId){
+  if(cart[itemId]) delete cart[itemId];
+  else cart[itemId] = true;
+  renderItems();
+  updateCartBar();
+}
+
+function updateCartBar(){
+  const ids = Object.keys(cart);
+  const bar = $('#cartBar');
+  if(!ids.length){ bar.classList.remove('show'); return }
+  bar.classList.add('show');
+  $('#cartCount').textContent = ids.length;
+  const total = ids.reduce((sum,id)=>{
+    const it = state.items.find(x=>x.id===id);
+    return sum + (it ? Number(it.preco)||0 : 0);
+  }, 0);
+  $('#cartTotal').textContent = fmtMoney(total);
+}
+
+/* =========================================================
+   FLUXO DE RESERVA — MULTI-STEP
+   ========================================================= */
+function openBooking(){
+  // injeta o carrinho atual na reserva
+  bookingData = {
+    date: null,
+    slot: null,
+    horasExtras: 0,
+    itemIds: Object.keys(cart),
+    cliente: { nome:'', tel:'', cpf:'', nascimento:'', endereco:'', evento:'', obs:'' },
+  };
+  bookingStep = 1;
+  openModal('bookingModal');
+  renderBookingStep();
+}
+
+function renderBookingStep(){
+  const titles = {
+    1: 'Escolha a data',
+    2: 'Escolha o turno',
+    3: 'Monte sua reserva',
+    4: 'Seus dados',
+    5: 'Conferir e pagar',
+    6: 'Pagamento via PIX',
+    7: 'Reserva enviada',
+  };
+  $('#bookingTitle').textContent = titles[bookingStep] || 'Reservar';
+
+  const totalSteps = 6; // a 7 é confirmação final, indicator some
+  const dots = Array.from({length:totalSteps}, (_,i)=>{
+    const n = i+1;
+    let cls='step-dot';
+    if(n<bookingStep) cls+=' done';
+    else if(n===bookingStep) cls+=' active';
+    return `<div class="${cls}"></div>`;
+  }).join('');
+
+  const stepsBar = bookingStep <= 6 ? `<div class="steps">${dots}</div>` : '';
+
+  if(bookingStep===1) $('#bookingBody').innerHTML = stepsBar + renderStepDate();
+  else if(bookingStep===2) $('#bookingBody').innerHTML = stepsBar + renderStepSlot();
+  else if(bookingStep===3) $('#bookingBody').innerHTML = stepsBar + renderStepItems();
+  else if(bookingStep===4) $('#bookingBody').innerHTML = stepsBar + renderStepClient();
+  else if(bookingStep===5) $('#bookingBody').innerHTML = stepsBar + renderStepReview();
+  else if(bookingStep===6) $('#bookingBody').innerHTML = stepsBar + renderStepPix();
+  else if(bookingStep===7) $('#bookingBody').innerHTML = renderStepDone();
+}
+
+/* ---- STEP 1: data ---- */
+function renderStepDate(){
+  return `
+    <p style="margin-bottom:14px;color:var(--ink-soft)">
+      Escolha um dia livre no calendário. Datas em vermelho já estão reservadas ou bloqueadas.
+    </p>
+    ${renderCalendar()}
+    <div class="cal-legend">
+      <span><i style="background:white;border:1px solid var(--line-strong)"></i>Livre</span>
+      <span><i style="background:#FEF3C7"></i>Parcial</span>
+      <span><i style="background:#FEE2E2"></i>Indisponível</span>
+      <span><i style="background:var(--pool)"></i>Selecionado</span>
+    </div>
+    <div style="margin-top:24px;display:flex;justify-content:space-between;gap:10px">
+      <button class="btn-secondary" onclick="closeModal('bookingModal')">Cancelar</button>
+      <button class="btn btn-primary" onclick="nextStep()" id="step1Next" ${!bookingData.date?'disabled style="opacity:.4;cursor:not-allowed"':''}>
+        Continuar →
+      </button>
+    </div>
+  `;
+}
+
+function renderCalendar(){
+  const months = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+  const wd = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+  const c = calCursor;
+  const y = c.getFullYear(), m = c.getMonth();
+  const first = new Date(y, m, 1);
+  const startDay = first.getDay();
+  const daysInMonth = new Date(y, m+1, 0).getDate();
+  const daysPrev = new Date(y, m, 0).getDate();
+  const today = todayStr();
+
+  const cells = [];
+  // dias do mês anterior
+  for(let i=startDay-1; i>=0; i--){
+    cells.push({day: daysPrev-i, other:true});
+  }
+  // dias deste mês
+  for(let d=1; d<=daysInMonth; d++){
+    const ymd = `${y}-${pad(m+1)}-${pad(d)}`;
+    const past = ymd < today;
+    const blocked = state.blockedDates.includes(ymd);
+    // verificar bookings naquele dia — todos os turnos se sobrepõem, então qualquer reserva bloqueia
+    const dayBookings = state.bookings.filter(b => b.data===ymd && b.status!=='cancelled');
+    const fullDay = dayBookings.length > 0;
+    const partial = false; // não há mais "parcial" com horários sobrepostos
+    cells.push({day:d, ymd, past, blocked, fullDay, partial, isToday: ymd===today});
+  }
+  // completar grid (até múltiplo de 7)
+  while(cells.length%7!==0) cells.push({day: cells.length-daysInMonth-startDay+1, other:true});
+
+  return `
+    <div class="cal">
+      <div class="cal-head">
+        <button class="cal-nav" onclick="calMove(-1)">‹</button>
+        <div class="cal-title">${months[m]} de ${y}</div>
+        <button class="cal-nav" onclick="calMove(1)">›</button>
+      </div>
+      <div class="cal-grid">
+        ${wd.map(w=>`<div class="cal-wd">${w}</div>`).join('')}
+        ${cells.map(c=>{
+          if(c.other) return `<div class="cal-day other">${c.day}</div>`;
+          let cls = 'cal-day';
+          if(c.past) cls += ' past';
+          else if(c.blocked || c.fullDay) cls += ' blocked';
+          else if(c.partial) cls += ' partial';
+          if(c.isToday) cls += ' today';
+          if(bookingData.date === c.ymd) cls += ' selected';
+          const click = (c.past || c.blocked || c.fullDay)
+            ? ''
+            : `onclick="pickDate('${c.ymd}')"`;
+          return `<div class="${cls}" ${click}>${c.day}${c.partial?'<span class="occ-dot"></span>':''}</div>`;
+        }).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function calMove(delta){
+  calCursor = new Date(calCursor.getFullYear(), calCursor.getMonth()+delta, 1);
+  renderBookingStep();
+}
+function pickDate(ymd){
+  bookingData.date = ymd;
+  // se já existe qualquer reserva nessa data, limpa turno (não deveria nem chegar aqui, mas por segurança)
+  const taken = state.bookings.filter(b=>b.data===ymd && b.status!=='cancelled');
+  if(taken.length > 0) bookingData.slot = null;
+  renderBookingStep();
+}
+
+/* ---- STEP 2: turno ---- */
+function renderStepSlot(){
+  const ymd = bookingData.date;
+  const dayBookings = state.bookings.filter(b => b.data===ymd && b.status!=='cancelled');
+  // Como os 3 turnos se sobrepõem (8-17, 12-00, 8-00), qualquer reserva bloqueia o dia
+  const diaOcupado = dayBookings.length > 0;
+  const c = state.config;
+
+  const slots = [
+    {id:'manha', nome:'Diurno', tempo:`${c.horaInicioManha} às ${c.horaFimManha}`, desc:'Festa durante o dia'},
+    {id:'tarde', nome:'Tarde/Noite', tempo:`${c.horaInicioTarde} às ${c.horaFimTarde}`, desc:'Festa da tarde até meia-noite'},
+    {id:'dia',   nome:'Dia inteiro', tempo:`${c.horaInicioDia} às ${c.horaFimDia}`, desc:'O dia todo, até meia-noite'},
+  ];
+
+  return `
+    <p style="margin-bottom:14px;color:var(--ink-soft)">
+      <strong>${dateBR(ymd)}</strong><br>
+      Escolha o horário da sua festa.
+    </p>
+    <div class="slots">
+      ${slots.map(s=>{
+        const ocupado = diaOcupado;
+        let cls = 'slot';
+        if(ocupado) cls += ' disabled';
+        if(bookingData.slot===s.id) cls += ' selected';
+        const click = ocupado ? '' : `onclick="pickSlot('${s.id}')"`;
+        return `
+          <div class="${cls}" ${click}>
+            <div class="slot-name">${s.nome}${ocupado?' (data ocupada)':''}</div>
+            <div class="slot-time">${s.tempo}</div>
+            <div style="font-size:11px;color:var(--mute);margin-top:4px">${s.desc}</div>
+          </div>`;
+      }).join('')}
+    </div>
+
+    ${bookingData.slot && bookingData.slot!=='dia' ? `
+      <div style="margin-top:20px;padding:16px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);border-radius:14px">
+        <div style="font-weight:700;margin-bottom:10px;font-size:14px">⏱️ Hora extra (opcional)</div>
+        <div style="font-size:12px;color:var(--mute);margin-bottom:10px">
+          Quer estender o horário? Cada hora extra: <strong>${fmtMoney(c.precoHoraExtra)}</strong>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <button class="btn-secondary" style="padding:8px 14px" onclick="changeExtraHours(-1)">−</button>
+          <div style="flex:1;text-align:center;font-family:var(--font-mono);font-size:18px;font-weight:700">
+            ${bookingData.horasExtras}h
+          </div>
+          <button class="btn-secondary" style="padding:8px 14px" onclick="changeExtraHours(1)">+</button>
+        </div>
+        ${bookingData.horasExtras>0 ? `
+          <div style="margin-top:10px;font-size:12px;color:var(--pool-deep);text-align:center">
+            + ${fmtMoney(bookingData.horasExtras * c.precoHoraExtra)} em horas extras
+          </div>
+        `:''}
+      </div>
+    `:''}
+
+    <div style="margin-top:24px;display:flex;justify-content:space-between;gap:10px">
+      <button class="btn-secondary" onclick="prevStep()">← Voltar</button>
+      <button class="btn btn-primary" onclick="nextStep()" ${!bookingData.slot?'disabled style="opacity:.4;cursor:not-allowed"':''}>
+        Continuar →
+      </button>
+    </div>
+  `;
+}
+function pickSlot(id){ bookingData.slot = id; if(id==='dia') bookingData.horasExtras = 0; renderBookingStep(); }
+function changeExtraHours(delta){
+  const novo = (bookingData.horasExtras||0) + delta;
+  if(novo < 0) return;
+  if(novo > 6) return; // limite de 6 horas extras
+  bookingData.horasExtras = novo;
+  renderBookingStep();
+}
+
+/* ---- STEP 3: itens ---- */
+function renderStepItems(){
+  const ativos = state.items.filter(i=>i.ativo);
+  const ordem = {pacote:0, espaco:1, equipamento:2, extra:3};
+  ativos.sort((a,b)=>(ordem[a.categoria]??9)-(ordem[b.categoria]??9));
+  return `
+    <p style="margin-bottom:14px;color:var(--ink-soft)">
+      Selecione quantos itens quiser. Você pode escolher um pacote ou montar à la carte.
+    </p>
+    <div style="display:flex;flex-direction:column;gap:8px;max-height:380px;overflow-y:auto;padding:2px">
+      ${ativos.map(it=>{
+        const checked = bookingData.itemIds.includes(it.id);
+        const keyMap = {pacote:'catPacote', espaco:'catEspaco', equipamento:'catEquip', extra:'catExtra'};
+        const catKey = keyMap[it.categoria] || 'catExtra';
+        const thumb = it.imagemUrl
+          ? `<img src="${escapeHtml(it.imagemUrl)}" alt="" style="width:36px;height:36px;border-radius:8px;object-fit:cover">`
+          : `<div style="width:36px;height:36px;display:flex;align-items:center;justify-content:center">${iconHtml(catKey,{size:'24px'})}</div>`;
+        return `
+          <label style="display:flex;align-items:center;gap:14px;padding:14px;background:${checked?'rgba(8,145,178,.08)':'var(--bg)'};border:2px solid ${checked?'var(--pool)':'transparent'};border-radius:14px;cursor:pointer;transition:all .15s">
+            <input type="checkbox" ${checked?'checked':''} onchange="toggleBookingItem('${it.id}')" style="width:20px;height:20px;accent-color:var(--pool);cursor:pointer">
+            ${thumb}
+            <div style="flex:1;min-width:0">
+              <div style="font-weight:700;font-size:15px">${escapeHtml(it.nome)}</div>
+              <div style="font-size:12px;color:var(--mute)">${escapeHtml(it.desc||'')}</div>
+            </div>
+            <div style="font-family:var(--font-mono);font-weight:700;color:var(--pool-deep);text-align:right">
+              ${fmtMoney(it.preco)}
+              <div style="font-size:10px;color:var(--mute);font-weight:400">${it.unidade==='hora'?'/h':'/diária'}</div>
+            </div>
+          </label>
+        `;
+      }).join('')}
+    </div>
+    <div class="summary" style="margin-top:16px">
+      <div class="summary-total">
+        <span class="k">Total</span>
+        <span class="v">${fmtMoney(calcBookingTotal())}</span>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;gap:10px">
+      <button class="btn-secondary" onclick="prevStep()">← Voltar</button>
+      <button class="btn btn-primary" onclick="nextStep()" ${!bookingData.itemIds.length?'disabled style="opacity:.4;cursor:not-allowed"':''}>
+        Continuar →
+      </button>
+    </div>
+  `;
+}
+function toggleBookingItem(id){
+  const i = bookingData.itemIds.indexOf(id);
+  if(i>=0) bookingData.itemIds.splice(i,1);
+  else bookingData.itemIds.push(id);
+  renderBookingStep();
+}
+function calcBookingTotal(){
+  const subtotalItens = bookingData.itemIds.reduce((s,id)=>{
+    const it = state.items.find(x=>x.id===id);
+    return s + (it?Number(it.preco)||0:0);
+  },0);
+  const extras = (Number(bookingData.horasExtras)||0) * (Number(state.config.precoHoraExtra)||0);
+  return subtotalItens + extras;
+}
+
+/* ---- STEP 4: cliente ---- */
+function renderStepClient(){
+  const cl = bookingData.cliente;
+  return `
+    <p style="margin-bottom:14px;color:var(--ink-soft)">
+      Precisamos dos seus dados para emitir o contrato e confirmar a reserva.
+      <strong style="color:var(--pool-deep)">Você precisa ter 18 anos ou mais.</strong>
+    </p>
+    <div class="field">
+      <label>Nome completo <span class="req">*</span></label>
+      <input id="clNome" value="${escapeHtml(cl.nome)}" placeholder="Como aparece no seu documento">
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>CPF <span class="req">*</span></label>
+        <input id="clCpf" value="${escapeHtml(cl.cpf||'')}" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" oninput="maskCPF(this)">
+      </div>
+      <div class="field">
+        <label>Data de nascimento <span class="req">*</span></label>
+        <input id="clNasc" type="date" value="${escapeHtml(cl.nascimento||'')}" max="${new Date().toISOString().slice(0,10)}">
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>WhatsApp <span class="req">*</span></label>
+        <input id="clTel" value="${escapeHtml(cl.tel)}" placeholder="(85) 9 9999-9999" inputmode="tel" oninput="maskTel(this)">
+      </div>
+      <div class="field">
+        <label>Tipo de evento</label>
+        <input id="clEvento" value="${escapeHtml(cl.evento||'')}" placeholder="Ex.: aniversário 5 anos">
+      </div>
+    </div>
+    <div class="field">
+      <label>Endereço residencial <span class="req">*</span></label>
+      <input id="clEndereco" value="${escapeHtml(cl.endereco||'')}" placeholder="Rua, número, bairro, cidade — UF">
+    </div>
+    <div class="field">
+      <label>Observações (opcional)</label>
+      <textarea id="clObs" rows="2" placeholder="Quantidade de convidados, decoração, alguma dúvida…">${escapeHtml(cl.obs)}</textarea>
+    </div>
+    <div style="display:flex;justify-content:space-between;gap:10px">
+      <button class="btn-secondary" onclick="prevStep()">← Voltar</button>
+      <button class="btn btn-primary" onclick="saveClientAndNext()">Continuar →</button>
+    </div>
+  `;
+}
+
+// Máscaras
+function maskCPF(el){
+  let v = el.value.replace(/\D/g,'').slice(0,11);
+  v = v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+  el.value = v;
+}
+function maskTel(el){
+  let v = el.value.replace(/\D/g,'').slice(0,11);
+  if(v.length>10) v = v.replace(/(\d{2})(\d{5})(\d{4}).*/,'($1) $2-$3');
+  else if(v.length>6) v = v.replace(/(\d{2})(\d{4})(\d{0,4}).*/,'($1) $2-$3');
+  else if(v.length>2) v = v.replace(/(\d{2})(\d{0,5}).*/,'($1) $2');
+  el.value = v;
+}
+function calcularIdade(nascStr){
+  if(!nascStr) return 0;
+  const hoje = new Date();
+  const nasc = new Date(nascStr + 'T00:00:00');
+  if(isNaN(nasc.getTime())) return 0;
+  let idade = hoje.getFullYear() - nasc.getFullYear();
+  const m = hoje.getMonth() - nasc.getMonth();
+  if(m<0 || (m===0 && hoje.getDate() < nasc.getDate())) idade--;
+  return idade;
+}
+function validarCPF(cpf){
+  // validação básica de CPF (mod 11)
+  cpf = String(cpf||'').replace(/\D/g,'');
+  if(cpf.length !== 11) return false;
+  if(/^(\d)\1{10}$/.test(cpf)) return false;
+  let s, r;
+  s = 0; for(let i=0;i<9;i++) s += parseInt(cpf[i])*(10-i);
+  r = (s*10)%11; if(r===10) r=0;
+  if(r !== parseInt(cpf[9])) return false;
+  s = 0; for(let i=0;i<10;i++) s += parseInt(cpf[i])*(11-i);
+  r = (s*10)%11; if(r===10) r=0;
+  if(r !== parseInt(cpf[10])) return false;
+  return true;
+}
+
+// Gera código de verificação tipo KIDPARK-2026-000184
+function gerarCodigoVerificacao(){
+  const ano = new Date().getFullYear();
+  const seq = String(Math.floor(Math.random()*900000)+100000);
+  return `KIDPARK-${ano}-${seq}`;
+}
+
+function saveClientAndNext(){
+  const nome = $('#clNome').value.trim();
+  const tel = $('#clTel').value.trim();
+  const cpf = $('#clCpf').value.trim();
+  const nasc = $('#clNasc').value;
+  const endereco = $('#clEndereco').value.trim();
+  if(!nome){ toast('Preencha seu nome','error'); return; }
+  if(!tel || tel.replace(/\D/g,'').length < 10){ toast('Preencha um WhatsApp válido','error'); return; }
+  if(!cpf || !validarCPF(cpf)){ toast('CPF inválido','error'); return; }
+  if(!nasc){ toast('Informe a data de nascimento','error'); return; }
+  const idade = calcularIdade(nasc);
+  if(idade < 18){ toast(`Você precisa ter 18 anos ou mais (idade detectada: ${idade}).`,'error'); return; }
+  if(idade > 120){ toast('Data de nascimento inválida','error'); return; }
+  if(!endereco || endereco.length < 8){ toast('Preencha seu endereço residencial completo','error'); return; }
+  bookingData.cliente = {
+    nome, tel, cpf, nascimento: nasc, endereco,
+    evento: $('#clEvento').value.trim(),
+    obs: $('#clObs').value.trim(),
+  };
+  nextStep();
+}
+
+/* ---- STEP 5: revisão ---- */
+function renderStepReview(){
+  const items = bookingData.itemIds.map(id => state.items.find(x=>x.id===id)).filter(Boolean);
+  const total = calcBookingTotal();
+  return `
+    <div class="pix-warn" style="background:#FEF3C7">
+      ⚠️ <strong>Confira tudo antes de pagar.</strong> Após confirmar, sua data ficará reservada aguardando o comprovante.
+    </div>
+    <div class="summary">
+      <div class="summary-row"><span class="k">📅 Data</span><span class="v">${dateBR(bookingData.date)}</span></div>
+      <div class="summary-row"><span class="k">⏰ Turno</span><span class="v">${slotLabel(bookingData.slot)}</span></div>
+      <div class="summary-row"><span class="k">👤 Cliente</span><span class="v">${escapeHtml(bookingData.cliente.nome)}</span></div>
+      <div class="summary-row"><span class="k">🆔 CPF</span><span class="v">${escapeHtml(bookingData.cliente.cpf||'')}</span></div>
+      <div class="summary-row"><span class="k">📱 WhatsApp</span><span class="v">${escapeHtml(bookingData.cliente.tel)}</span></div>
+      <div class="summary-row"><span class="k">🏠 Endereço</span><span class="v" style="font-size:12px;text-align:right;max-width:60%">${escapeHtml(bookingData.cliente.endereco||'')}</span></div>
+      ${bookingData.cliente.evento?`<div class="summary-row"><span class="k">🎉 Evento</span><span class="v">${escapeHtml(bookingData.cliente.evento)}</span></div>`:''}
+      ${bookingData.cliente.obs?`<div class="summary-row"><span class="k">📝 Obs</span><span class="v">${escapeHtml(bookingData.cliente.obs)}</span></div>`:''}
+    </div>
+    <div class="summary">
+      <div style="font-weight:700;margin-bottom:10px">Itens reservados</div>
+      ${items.map(it=>`
+        <div class="summary-row">
+          <span class="k">${escapeHtml(it.nome)}</span>
+          <span class="v">${fmtMoney(it.preco)}</span>
+        </div>
+      `).join('')}
+      ${bookingData.horasExtras>0 ? `
+        <div class="summary-row">
+          <span class="k">⏱️ ${bookingData.horasExtras}h extra(s)</span>
+          <span class="v">${fmtMoney(bookingData.horasExtras * (state.config.precoHoraExtra||0))}</span>
+        </div>
+      `:''}
+      <div class="summary-total">
+        <span class="k">Total a pagar</span>
+        <span class="v">${fmtMoney(total)}</span>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;gap:10px">
+      <button class="btn-secondary" onclick="prevStep()">← Voltar</button>
+      <button class="btn-block success" style="flex:1;max-width:280px" onclick="createBookingAndPay()">
+        ✓ Confirmar e ir pro PIX
+      </button>
+    </div>
+  `;
+}
+
+async function createBookingAndPay(){
+  const total = calcBookingTotal();
+  const items = bookingData.itemIds.map(id => {
+    const it = state.items.find(x=>x.id===id);
+    return {id:it.id, nome:it.nome, preco:Number(it.preco)||0};
+  });
+  const booking = {
+    id: uid('RES'),
+    verificacao: gerarCodigoVerificacao(),
+    data: bookingData.date,
+    slot: bookingData.slot,
+    horasExtras: Number(bookingData.horasExtras)||0,
+    precoHoraExtra: Number(state.config.precoHoraExtra)||0,
+    items,
+    total,
+    cliente: {...bookingData.cliente},
+    contrato: { assinado:false, fotoBase64:'', dataAssinatura:'' },
+    status: 'aguardando_comprovante',
+    createdAt: new Date().toISOString(),
+  };
+  state.bookings.unshift(booking);
+  saveState();
+  bookingData._created = booking;
+
+  // empurra pro backend (não bloqueia)
+  backendCall('createBooking', {booking});
+
+  // limpa carrinho da home
+  cart = {};
+  updateCartBar();
+  renderItems();
+
+  nextStep();
+}
+
+/* ---- STEP 6: PIX ---- */
+function renderStepPix(){
+  const b = bookingData._created;
+  if(!b){ return `<p>Erro: reserva não criada.</p>` }
+  // Sincroniza estado do contrato (caso tenha sido assinado e a tela tenha sido re-renderizada)
+  const livro = state.bookings.find(x=>x.id===b.id);
+  if(livro) b.contrato = livro.contrato || b.contrato;
+  const assinado = b.contrato && b.contrato.assinado;
+  const pix = state.pix;
+  const qr = pix.qrBase64 || pix.qrUrl;
+
+  // RESUMO sempre visível no topo
+  const resumoHtml = `
+    <div class="summary">
+      <div class="summary-row"><span class="k">Reserva</span><span class="v" style="font-family:var(--font-mono);font-size:12px">${b.id}</span></div>
+      <div class="summary-row"><span class="k">Data</span><span class="v">${dateShort(b.data)} · ${slotLabel(b.slot).split(' ')[0]}</span></div>
+      <div class="summary-row"><span class="k">Cliente</span><span class="v">${escapeHtml(b.cliente.nome)}</span></div>
+      <div class="summary-total">
+        <span class="k">Total</span>
+        <span class="v">${fmtMoney(b.total)}</span>
+      </div>
+    </div>
+  `;
+
+  // CASO 1: contrato NÃO assinado — bloqueia o PIX
+  if(!assinado){
+    return `
+      ${resumoHtml}
+      <div class="pix-warn" style="background:#FEF3C7">
+        📝 <strong>Antes do pagamento, é preciso assinar o termo de responsabilidade.</strong>
+        <br><span style="font-size:12px;color:var(--ink-soft)">A assinatura é digital, por foto (selfie), e é necessária para liberar o PIX.</span>
+      </div>
+      <button class="btn-block" style="background:var(--pool-deep);color:white;font-size:16px;padding:18px" onclick="openContractModal()">
+        📝 Ler e assinar contrato
+      </button>
+      <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--mute)">
+        Você precisará permitir o acesso à câmera para fazer a assinatura por foto.
+      </div>
+    `;
+  }
+
+  // CASO 2: contrato assinado — libera o PIX
+  return `
+    <div style="background:#D1FAE5;border:1px solid #6EE7B7;color:#065F46;padding:12px 14px;border-radius:12px;margin-bottom:14px;display:flex;align-items:center;gap:10px">
+      <span style="font-size:22px">✓</span>
+      <div style="flex:1;font-size:13px">
+        <strong>Contrato assinado</strong> em ${new Date(b.contrato.dataAssinatura).toLocaleString('pt-BR')}.<br>
+        <span style="font-size:11px;font-family:var(--font-mono)">Verificação: ${b.verificacao}</span>
+      </div>
+      <button class="btn-secondary" style="padding:8px 12px;font-size:12px" onclick="viewContract('${b.id}')">Ver</button>
+    </div>
+
+    <div class="pix-warn">
+      ⚠️ <strong>Digite o valor total ao pagar.</strong> O QR não inclui o valor — você precisa inserir <strong>R$ ${fmtMoneyFull(b.total)}</strong> no app do banco.
+    </div>
+
+    ${qr ? `
+      <div class="pix-qr">
+        <img src="${escapeHtml(qr)}" alt="QR Code PIX">
+        <div style="font-size:12px;color:var(--mute);margin-top:8px">Aponte a câmera do seu app bancário</div>
+      </div>
+    ` : `
+      <div class="empty-state" style="margin-bottom:14px">
+        <div class="ic">📱</div>
+        QR Code não cadastrado pelo admin.<br>Use a chave PIX abaixo.
+      </div>
+    `}
+
+    ${pix.chave ? `
+      <div class="pix-card">
+        <div class="pix-label">Chave PIX</div>
+        <div class="pix-key" onclick="copyPix()" title="Clique para copiar">${escapeHtml(pix.chave)}</div>
+        <div class="pix-meta">
+          ${pix.nomeBeneficiario?`<div><strong>${escapeHtml(pix.nomeBeneficiario)}</strong></div>`:''}
+          ${pix.banco?`<div>${escapeHtml(pix.banco)}</div>`:''}
+        </div>
+        <button class="btn-block" style="margin-top:14px;background:var(--mint);color:var(--ink)" onclick="copyPix()">📋 Copiar chave</button>
+      </div>
+    ` : `
+      <div class="empty-state" style="background:#FEE2E2;border-color:#FCA5A5;color:#991B1B">
+        Chave PIX não cadastrada. Entre em contato pelo WhatsApp.
+      </div>
+    `}
+
+    ${resumoHtml}
+
+    <div style="background:var(--bg);border-radius:12px;padding:14px;margin-bottom:14px;font-size:13px;color:var(--ink-soft)">
+      ⚠ Após o PIX, envie o comprovante <strong>e o contrato assinado</strong> pelo WhatsApp. Sua data só fica confirmada depois da verificação.
+    </div>
+
+    <button class="btn-block" onclick="sendContractWhats('${b.id}')" style="background:var(--pool-deep);color:white">
+      📄 Enviar contrato pelo WhatsApp
+    </button>
+    <button class="btn-block" style="margin-top:10px" onclick="sendComprovanteWhats()">
+      📎 Enviar comprovante do PIX
+    </button>
+    <button class="btn-secondary" style="width:100%;margin-top:10px" onclick="nextStep()">
+      ✓ Já enviei tudo
+    </button>
+  `;
+}
+
+/* =========================================================
+   CONTRATO — termo de responsabilidade + assinatura por foto
+   ========================================================= */
+
+// Texto base dos termos (numerados). Pode ser ajustado livremente.
+const TERMOS_CONTRATO = [
+  'Por meio do presente contrato assumo a RESPONSABILIDADE TOTAL do espaço Kid Park, ficando responsável pelas pessoas que estarão ocupando o referido espaço durante o evento, que acontecerá nas datas e horários especificados acima.',
+  'Estou ciente que o espaço Kid Park NÃO permite eventos abertos ao público, seja ele cobrando bilheteria ou não, sendo permitidos apenas eventos particulares como aniversários, casamentos, sociais etc. O descumprimento pode acarretar no encerramento do evento e os valores pagos pelo contratante NÃO serão reembolsados.',
+  'Fico responsável por todos os bens materiais dentro do espaço Kid Park: mesas, cadeiras, congelador, fogão industrial, caixa de som, geladeira/gelágua, equipamentos de lazer e demais itens da decoração ou estrutura (jarros, plantas, quadros, portas, sanitários, pias etc.). Tendo a consciência de que a perda ou danificação destes itens deverá ser paga pelo contratante mediante acordo.',
+  'Assumo a responsabilidade de orientar os participantes a NÃO utilizarem objetos de vidro ou cortantes dentro da piscina, como copos, garrafas, pratos etc.',
+  'É proibido o consumo de alimentos dentro das piscinas.',
+  'Estou ciente que crianças menores de 3 anos devem estar de fraldas descartáveis para entrar nas piscinas.',
+  'Toda e qualquer pessoa deverá passar no chuveiro antes de entrar na piscina.',
+  'O uso de carros de som é permitido apenas dentro dos limites de volumes legais em decibéis. Caso o limite máximo permitido seja excedido e o evento seja encerrado pela polícia ou órgãos jurídicos, os valores pagos pelo contratante NÃO serão reembolsados.',
+  'Assumo a responsabilidade de orientar os participantes menores de 18 anos a NÃO consumirem bebidas alcoólicas, e tenho ciência de que essa prática é crime previsto por lei.',
+];
+
+let _cameraStream = null;   // stream ativo (para poder parar)
+let _capturedPhoto = null;  // dataURL base64 da foto capturada
+
+function openContractModal(){
+  const b = bookingData._created;
+  if(!b){ toast('Reserva não encontrada','error'); return; }
+  _capturedPhoto = null;
+  renderContractView('read', b);
+  openModal('contractModal');
+}
+
+function closeContractModal(){
+  stopCamera();
+  _capturedPhoto = null;
+  closeModal('contractModal');
+}
+
+// view: 'read' | 'camera' | 'preview' | 'done'
+function renderContractView(view, b){
+  const body = $('#contractBody');
+  if(!body) return;
+  if(view==='read')    body.innerHTML = renderContractRead(b);
+  if(view==='camera')  { body.innerHTML = renderContractCamera(b); startCamera(); }
+  if(view==='preview') body.innerHTML = renderContractPreview(b);
+  if(view==='done')    body.innerHTML = renderContractDone(b);
+}
+
+function contractDocHTML(b, opts){
+  opts = opts || {};
+  const c = state.config;
+  const cl = b.cliente;
+  const itens = b.items.map(it => `${it.nome} (${fmtMoney(it.preco)})`).join('; ');
+  const horaTxt = slotLabel(b.slot);
+  const horasExtras = b.horasExtras>0 ? ` + ${b.horasExtras}h extra(s)` : '';
+  const sig = (b.contrato && b.contrato.assinado) || opts.previewSig;
+  const fotoBase = (b.contrato && b.contrato.fotoBase64) || opts.previewFoto || '';
+  const dataAss = (b.contrato && b.contrato.dataAssinatura) || opts.previewData || new Date().toISOString();
+  const cpfMasked = (cl.cpf||'').replace(/^(\d{3})\.(\d{3})\.(\d{3})/, '***.$2.$3');
+
+  return `
+    <div class="contract-doc">
+      <h2>Termo de Responsabilidade / Contrato</h2>
+
+      <div class="party"><strong>EU:</strong> ${escapeHtml(cl.nome||'')}</div>
+      <div class="party"><strong>PORTADOR DO CPF Nº:</strong> ${escapeHtml(cl.cpf||'')}</div>
+      <div class="party"><strong>RESIDENTE:</strong> ${escapeHtml(cl.endereco||'')}</div>
+      <div class="party"><strong>WHATSAPP:</strong> ${escapeHtml(cl.tel||'')}</div>
+
+      <div class="party" style="background:var(--bg);padding:10px 12px;border-radius:8px;font-size:12px;margin-top:14px">
+        <strong>RESERVA:</strong> ${b.id}<br>
+        <strong>DATA DO EVENTO:</strong> ${dateBR(b.data)}<br>
+        <strong>HORÁRIO:</strong> ${horaTxt}${horasExtras}<br>
+        <strong>ITENS / SERVIÇOS:</strong> ${escapeHtml(itens)}<br>
+        <strong>VALOR TOTAL:</strong> ${fmtMoney(b.total)}
+      </div>
+
+      <ol class="terms-list">
+        ${TERMOS_CONTRATO.map(t=>`<li>${escapeHtml(t)}</li>`).join('')}
+      </ol>
+
+      ${sig ? `
+        <div class="signature-box">
+          <div class="photo">
+            ${fotoBase ? `<img src="${escapeHtml(fotoBase)}" alt="Foto da assinatura">` : '👤'}
+          </div>
+          <div class="info">
+            <div class="badge-top">✓ Assinatura realizada por foto</div>
+            <div class="name">${escapeHtml(cl.nome||'')}</div>
+            <div class="meta">
+              CPF: ${escapeHtml(cpfMasked)}<br>
+              Assinado em: ${new Date(dataAss).toLocaleString('pt-BR')}<br>
+              Verificação: ${escapeHtml(b.verificacao||'')}
+            </div>
+          </div>
+          <div class="stamp">CONFIRMADO</div>
+        </div>
+      ` : ''}
+
+      <div class="place-footer">
+        Espaço Kid Park<br>
+        ${escapeHtml(c.endereco || 'Madalena · CE')}
+      </div>
+    </div>
+  `;
+}
+
+function renderContractRead(b){
+  return `
+    <p style="margin:0 0 12px;font-size:13px;color:var(--ink-soft)">
+      Leia o termo abaixo. Para assinar, clique em <strong>Assinar com foto</strong> ao final.
+    </p>
+    ${contractDocHTML(b)}
+    <div style="display:flex;justify-content:space-between;gap:10px;margin-top:18px">
+      <button class="btn-secondary" onclick="closeContractModal()">Voltar</button>
+      <button class="btn btn-primary" onclick="renderContractView('camera', bookingData._created)">
+        📷 Assinar com foto
+      </button>
+    </div>
+  `;
+}
+
+function renderContractCamera(b){
+  return `
+    <p class="camera-tip">
+      📸 Tire uma selfie clara, olhando para a câmera. Essa foto será sua <strong>assinatura digital</strong> no contrato.
+    </p>
+    <div class="camera-stage">
+      <video id="contractVideo" autoplay playsinline muted></video>
+      <div class="camera-overlay" id="contractOverlay">Solicitando acesso à câmera…</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;gap:10px;margin-top:8px">
+      <button class="btn-secondary" onclick="renderContractView('read', bookingData._created)">← Voltar</button>
+      <button class="btn btn-primary" id="btnSnap" onclick="capturePhoto()" disabled style="opacity:.5">
+        📸 Capturar foto
+      </button>
+    </div>
+  `;
+}
+
+function renderContractPreview(b){
+  return `
+    <p class="camera-tip">
+      Confira a foto. Se estiver boa, clique em <strong>Confirmar assinatura</strong>.
+    </p>
+    <div class="camera-stage">
+      <img class="captured" src="${escapeHtml(_capturedPhoto||'')}" alt="Foto capturada">
+    </div>
+    <div style="background:var(--bg);padding:10px 12px;border-radius:10px;font-size:12px;color:var(--ink-soft);margin-bottom:12px">
+      Ao confirmar, você declara ter lido e aceitado todos os termos do contrato acima.
+      A foto e seus dados serão usados como sua assinatura digital.
+    </div>
+    <div style="display:flex;justify-content:space-between;gap:10px">
+      <button class="btn-secondary" onclick="renderContractView('camera', bookingData._created)">↺ Tirar outra</button>
+      <button class="btn btn-primary" style="background:#059669" onclick="confirmSignature()">
+        ✓ Confirmar assinatura
+      </button>
+    </div>
+  `;
+}
+
+function renderContractDone(b){
+  return `
+    <div style="background:#D1FAE5;border:1px solid #6EE7B7;color:#065F46;padding:14px;border-radius:12px;margin-bottom:14px;text-align:center">
+      <div style="font-size:32px;margin-bottom:4px">✓</div>
+      <div style="font-weight:700">Contrato assinado com sucesso!</div>
+      <div style="font-size:12px;margin-top:6px">Código de verificação: <strong>${escapeHtml(b.verificacao)}</strong></div>
+    </div>
+    ${contractDocHTML(b)}
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:18px">
+      <button class="btn-block" style="background:var(--pool-deep);color:white" onclick="viewContract('${b.id}')">
+        📥 Baixar contrato em PDF
+      </button>
+      <button class="btn-block" style="background:#22C55E;color:white" onclick="sendContractWhats('${b.id}')">
+        📱 Enviar pelo WhatsApp
+      </button>
+      <button class="btn-secondary" onclick="closeContractModal()">Fechar</button>
+    </div>
+  `;
+}
+
+async function startCamera(){
+  const overlay = $('#contractOverlay');
+  const video = $('#contractVideo');
+  const btn = $('#btnSnap');
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    if(overlay) overlay.textContent = '❌ Seu dispositivo não suporta câmera no navegador.';
+    return;
+  }
+  try{
+    _cameraStream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: 'user', width: {ideal:720}, height: {ideal:540} },
+      audio: false,
+    });
+    if(video){
+      video.srcObject = _cameraStream;
+      video.onloadedmetadata = ()=> video.play();
+    }
+    if(overlay) overlay.style.display = 'none';
+    if(btn){ btn.disabled = false; btn.style.opacity = '1'; }
+  }catch(err){
+    if(overlay) overlay.innerHTML = `❌ Acesso à câmera negado.<br><span style="font-size:12px">Verifique as permissões do navegador e tente novamente.</span>`;
+    console.warn('Câmera:', err);
+  }
+}
+
+function stopCamera(){
+  if(_cameraStream){
+    _cameraStream.getTracks().forEach(t => t.stop());
+    _cameraStream = null;
+  }
+}
+
+function capturePhoto(){
+  const video = $('#contractVideo');
+  if(!video || !video.videoWidth){ toast('Câmera ainda carregando…','error'); return; }
+  const w = video.videoWidth, h = video.videoHeight;
+  const canvas = document.createElement('canvas');
+  canvas.width = w; canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  // desenha desespelhado (o vídeo é exibido espelhado, mas salvamos a foto normal)
+  ctx.drawImage(video, 0, 0, w, h);
+  // compressão jpeg pra caber no localStorage
+  _capturedPhoto = canvas.toDataURL('image/jpeg', 0.75);
+  stopCamera();
+  renderContractView('preview', bookingData._created);
+}
+
+function confirmSignature(){
+  const b = bookingData._created;
+  if(!b){ toast('Reserva não encontrada','error'); return; }
+  if(!_capturedPhoto){ toast('Foto não capturada','error'); return; }
+  // salva no booking dentro do state
+  const idx = state.bookings.findIndex(x => x.id === b.id);
+  const contrato = {
+    assinado: true,
+    fotoBase64: _capturedPhoto,
+    dataAssinatura: new Date().toISOString(),
+  };
+  if(idx >= 0){
+    state.bookings[idx].contrato = contrato;
+    saveState();
+    bookingData._created.contrato = contrato;
+  }
+  toast('Contrato assinado ✓','success');
+  renderContractView('done', bookingData._created);
+  // se a tela do PIX está visível, re-renderiza para liberar
+  if(bookingStep === 6) renderBookingStep();
+}
+
+// Gera o HTML do contrato no formato A4 (otimizado para o PDF).
+// Layout compacto: tenta caber em uma página só.
+function _buildContractHTMLForPDF(b){
+  const c = state.config;
+  const cl = b.cliente;
+  const itens = b.items.map(it => `${it.nome} (${fmtMoney(it.preco)})`).join('; ');
+  const horaTxt = slotLabel(b.slot);
+  const horasExtras = b.horasExtras>0 ? ` + ${b.horasExtras}h extra(s)` : '';
+  const cpfMasked = (cl.cpf||'').replace(/^(\d{3})\.(\d{3})\.(\d{3})/, '***.$2.$3');
+  const fotoBase = (b.contrato && b.contrato.fotoBase64) || '';
+  const dataAss = (b.contrato && b.contrato.dataAssinatura) || new Date().toISOString();
+
+  // Tudo com cores em hex (html2canvas não suporta oklch).
+  // Layout COMPACTO: paddings/margins/fontes reduzidos pra caber em A4.
+  return `
+<div style="width:794px;padding:24px 36px;background:#ffffff;color:#1a2332;font-family:Arial, sans-serif;line-height:1.4;box-sizing:border-box">
+  <h2 style="text-align:center;font-size:20px;text-decoration:underline;margin:0 0 14px;font-weight:700">
+    Termo de Responsabilidade / Contrato
+  </h2>
+  <div style="font-size:12px;margin-bottom:4px"><b style="display:inline-block;min-width:155px">EU:</b> ${escapeHtml(cl.nome||'')}</div>
+  <div style="font-size:12px;margin-bottom:4px"><b style="display:inline-block;min-width:155px">PORTADOR DO CPF Nº:</b> ${escapeHtml(cl.cpf||'')}</div>
+  <div style="font-size:12px;margin-bottom:4px"><b style="display:inline-block;min-width:155px">RESIDENTE:</b> ${escapeHtml(cl.endereco||'')}</div>
+  <div style="font-size:12px;margin-bottom:4px"><b style="display:inline-block;min-width:155px">WHATSAPP:</b> ${escapeHtml(cl.tel||'')}</div>
+
+  <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:6px;padding:8px 12px;font-size:11.5px;margin:10px 0 12px;color:#0c4a6e;line-height:1.5">
+    <b>RESERVA:</b> ${escapeHtml(b.id)} &nbsp;·&nbsp; <b>VERIFICAÇÃO:</b> ${escapeHtml(b.verificacao||'')}<br>
+    <b>DATA DO EVENTO:</b> ${dateBR(b.data)}<br>
+    <b>HORÁRIO:</b> ${horaTxt}${horasExtras}<br>
+    <b>ITENS / SERVIÇOS:</b> ${escapeHtml(itens)}<br>
+    <b>VALOR TOTAL:</b> ${fmtMoney(b.total)}
+  </div>
+
+  <ol style="padding-left:20px;margin:0;font-size:11px;line-height:1.4">
+    ${TERMOS_CONTRATO.map(t => `<li style="margin-bottom:5px;text-align:justify">${escapeHtml(t)}</li>`).join('')}
+  </ol>
+
+  <!-- Card de assinatura COMPACTO em table layout -->
+  <table style="width:100%;margin-top:14px;background:#ecfdf5;border:2px solid #6ee7b7;border-radius:12px;border-collapse:separate;border-spacing:0">
+    <tr>
+      <td style="width:78px;padding:10px 4px 10px 10px;vertical-align:middle">
+        <div style="width:64px;height:64px;border-radius:50%;border:2px solid #6ee7b7;background:#ffffff;overflow:hidden">
+          ${fotoBase
+            ? `<img src="${escapeHtml(fotoBase)}" alt="" style="width:64px;height:64px;object-fit:cover;display:block">`
+            : `<div style="width:64px;height:64px;display:flex;align-items:center;justify-content:center;font-size:28px;color:#9ca3af">👤</div>`}
+        </div>
+      </td>
+      <td style="padding:10px 8px;vertical-align:middle">
+        <div style="font-size:10px;font-weight:700;color:#065f46;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px">
+          ✓ Assinatura realizada por foto
+        </div>
+        <div style="font-weight:700;font-size:13.5px;color:#065f46;margin-bottom:2px">${escapeHtml(cl.nome||'')}</div>
+        <div style="font-size:10.5px;color:#047857;line-height:1.45">
+          CPF: ${escapeHtml(cpfMasked)} &nbsp;·&nbsp; Assinado em: ${new Date(dataAss).toLocaleString('pt-BR')}
+        </div>
+      </td>
+      <td style="width:108px;padding:10px;text-align:center;vertical-align:middle">
+        <div style="display:inline-block;border:1.5px solid #059669;color:#059669;padding:5px 11px;border-radius:18px;font-size:10px;font-weight:700;letter-spacing:.5px">
+          CONFIRMADO
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <div style="text-align:center;margin-top:12px;padding-top:8px;border-top:1px solid #e5e7eb;font-size:10.5px;color:#6b7280">
+    Espaço Kid Park · ${escapeHtml(c.endereco || 'Madalena · CE')}
+  </div>
+</div>
+`;
+}
+
+// Gera o PDF do contrato. Retorna { blob, file, filename } ou null em caso de erro.
+async function _generateContractPDF(b){
+  if(!window.html2canvas || !window.jspdf){
+    toast('Aguarde alguns segundos — carregando gerador de PDF…','error');
+    return null;
+  }
+  // monta o HTML em container off-screen
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'position:fixed;left:-99999px;top:0;background:#fff;z-index:-1';
+  wrap.innerHTML = _buildContractHTMLForPDF(b);
+  document.body.appendChild(wrap);
+  const target = wrap.firstElementChild;
+
+  try{
+    // renderiza em canvas
+    const canvas = await html2canvas(target, {
+      scale: 2,
+      backgroundColor: '#ffffff',
+      useCORS: true,
+      logging: false,
+    });
+    const imgData = canvas.toDataURL('image/jpeg', 0.92);
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' });
+
+    // dimensões A4 em mm
+    const pageW = 210;
+    const pageH = 297;
+    const imgW = pageW;
+    const imgH = (canvas.height * imgW) / canvas.width;
+
+    // PAGINAÇÃO INTELIGENTE — evita página em branco no final
+    const paginasNatural = Math.ceil(imgH / pageH);
+
+    if (paginasNatural <= 1) {
+      // Cabe em 1 página naturalmente
+      pdf.addImage(imgData, 'JPEG', 0, 0, imgW, imgH);
+    } else {
+      // Quanto da última página seria usado?
+      const usoUltimaPagina = imgH - (paginasNatural - 1) * pageH; // em mm
+      const limiarComprimir = pageH * 0.35; // se a última página tem menos que 35% de conteúdo
+
+      if (usoUltimaPagina < limiarComprimir) {
+        // Comprime para (paginasNatural - 1) páginas (foge da última página quase vazia)
+        const paginasAlvo = paginasNatural - 1;
+        const novaAltura = paginasAlvo * pageH;
+        const novaLargura = (novaAltura / imgH) * imgW;
+        const offsetX = (pageW - novaLargura) / 2;
+        for (let i = 0; i < paginasAlvo; i++) {
+          if (i > 0) pdf.addPage();
+          const yOffset = -i * pageH;
+          pdf.addImage(imgData, 'JPEG', offsetX, yOffset, novaLargura, novaAltura);
+        }
+      } else {
+        // Paginação normal — múltiplas páginas, última tem conteúdo suficiente
+        let heightLeft = imgH;
+        let position = 0;
+        pdf.addImage(imgData, 'JPEG', 0, position, imgW, imgH);
+        heightLeft -= pageH;
+        while (heightLeft > 0.5) {
+          position -= pageH;
+          pdf.addPage();
+          pdf.addImage(imgData, 'JPEG', 0, position, imgW, imgH);
+          heightLeft -= pageH;
+        }
+      }
+    }
+
+    const blob = pdf.output('blob');
+    const filename = `Contrato_${b.id}_KidPark.pdf`;
+    const file = new File([blob], filename, { type:'application/pdf' });
+    return { blob, file, filename };
+  } catch(err){
+    console.error('PDF erro:', err);
+    toast('Falha ao gerar PDF: '+err.message,'error');
+    return null;
+  } finally {
+    wrap.remove();
+  }
+}
+
+// Baixa o PDF
+function _downloadBlob(blob, filename){
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=> URL.revokeObjectURL(url), 1000);
+}
+
+// Abre / baixa o contrato em PDF
+async function viewContract(bookingId){
+  const b = state.bookings.find(x => x.id === bookingId);
+  if(!b){ toast('Reserva não encontrada','error'); return; }
+  toast('Gerando PDF…');
+  const pdf = await _generateContractPDF(b);
+  if(!pdf) return;
+  _downloadBlob(pdf.blob, pdf.filename);
+  toast('PDF gerado ✓','success');
+}
+
+// Envia o contrato em PDF pelo WhatsApp.
+// SEMPRE direto pro número cadastrado pelo admin (sem menu de seleção de contato).
+// Baixa o PDF no dispositivo e abre o chat com mensagem instruindo a anexar.
+async function sendContractWhats(bookingId){
+  const b = state.bookings.find(x => x.id === bookingId);
+  if(!b){ toast('Reserva não encontrada','error'); return; }
+  if(!b.contrato || !b.contrato.assinado){ toast('Contrato ainda não foi assinado','error'); return; }
+
+  // Normaliza WhatsApp para formato internacional (adiciona 55 se necessário)
+  let adminTel = (state.config.whatsapp || '').replace(/\D/g,'');
+  if(!adminTel){ toast('WhatsApp do espaço não configurado','error'); return; }
+  if(adminTel.length === 10 || adminTel.length === 11) adminTel = '55' + adminTel; // BR sem código do país
+  // se já tem 12-13 dígitos, assume que já está com código
+
+  toast('Preparando contrato em PDF…');
+  const pdf = await _generateContractPDF(b);
+  if(!pdf) return;
+
+  // Baixa o PDF para o cliente anexar manualmente
+  _downloadBlob(pdf.blob, pdf.filename);
+
+  const msg =
+    `*Contrato assinado — Kid Park*\n\n` +
+    `*Reserva:* ${b.id}\n` +
+    `*Verificação:* ${b.verificacao}\n\n` +
+    `*Contratante:* ${b.cliente.nome}\n` +
+    `CPF: ${b.cliente.cpf||''}\n` +
+    `WhatsApp: ${b.cliente.tel}\n\n` +
+    `*Evento:* ${dateBR(b.data)} · ${slotLabel(b.slot)}` +
+    (b.horasExtras>0 ? ` (+${b.horasExtras}h)` : '') + `\n` +
+    `*Total:* ${fmtMoney(b.total)}\n\n` +
+    `📎 Estou anexando o contrato completo em PDF.`;
+
+  toast('PDF baixado — abrindo WhatsApp','success');
+
+  // Abre direto no chat do número cadastrado (sem menu de seleção de contato)
+  setTimeout(()=>{
+    window.open(`https://wa.me/${adminTel}?text=${encodeURIComponent(msg)}`, '_blank');
+  }, 500);
+}
+
+function copyPix(){
+  const chave = state.pix.chave;
+  if(!chave){ toast('Chave PIX vazia','error'); return; }
+  navigator.clipboard?.writeText(chave).then(()=>{
+    toast('Chave PIX copiada ✓','success');
+  }).catch(()=>{
+    // fallback
+    const ta = document.createElement('textarea');
+    ta.value = chave; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+    toast('Chave PIX copiada ✓','success');
+  });
+}
+
+function sendComprovanteWhats(){
+  const b = bookingData._created;
+  if(!b){ toast('Reserva inválida','error'); return; }
+  const tel = (state.config.whatsapp||'').replace(/\D/g,'');
+  if(!tel){
+    toast('WhatsApp do admin não configurado','error');
+    return;
+  }
+  const items = b.items.map(it=>`- ${it.nome}: ${fmtMoney(it.preco)}`).join('\n');
+  const msg = `Olá! Quero confirmar minha reserva no ${state.config.brandName}.
+
+🎉 *Reserva ${b.id}*
+👤 ${b.cliente.nome}
+📱 ${b.cliente.tel}
+📅 ${dateBR(b.data)}
+⏰ ${slotLabel(b.slot)}
+
+*Itens:*
+${items}
+
+💰 *Total: R$ ${fmtMoneyFull(b.total)}*
+
+Segue o comprovante 👇`;
+  window.open(`https://wa.me/${tel}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+/* ---- STEP 7: confirmação final ---- */
+function renderStepDone(){
+  const b = bookingData._created;
+  return `
+    <div style="text-align:center;padding:20px 10px">
+      <div style="font-size:64px;margin-bottom:14px">🎉</div>
+      <h2 class="h-display" style="font-size:32px;margin-bottom:10px">Reserva enviada!</h2>
+      <p style="color:var(--ink-soft);margin-bottom:24px">
+        Sua data está bloqueada aguardando o comprovante.<br>
+        Em breve você receberá uma confirmação no WhatsApp.
+      </p>
+      <div class="summary" style="text-align:left">
+        <div class="summary-row"><span class="k">Reserva</span><span class="v" style="font-family:var(--font-mono)">${b.id}</span></div>
+        <div class="summary-row"><span class="k">Data</span><span class="v">${dateBR(b.data)}</span></div>
+        <div class="summary-row"><span class="k">Turno</span><span class="v">${slotLabel(b.slot)}</span></div>
+        <div class="summary-row"><span class="k">Total</span><span class="v" style="font-family:var(--font-mono);font-weight:700">${fmtMoney(b.total)}</span></div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:20px;justify-content:center;flex-wrap:wrap">
+        <button class="btn-secondary" onclick="printReceipt('${b.id}')">🖨️ Imprimir comprovante</button>
+        <button class="btn btn-primary" onclick="closeModal('bookingModal')">Fechar</button>
+      </div>
+    </div>
+  `;
+}
+
+function nextStep(){ if(bookingStep<7) bookingStep++; renderBookingStep(); }
+function prevStep(){ if(bookingStep>1) bookingStep--; renderBookingStep(); }
+
+function printReceipt(bid){
+  const b = state.bookings.find(x=>x.id===bid);
+  if(!b) return;
+  const html = `
+    <div style="font-family:system-ui;max-width:600px;margin:40px auto;padding:24px;color:#000">
+      <div style="border-bottom:2px solid #000;padding-bottom:16px;margin-bottom:20px">
+        <h1 style="font-size:24px;margin:0">${escapeHtml(state.config.brandName)}</h1>
+        <div style="color:#666;font-size:13px">Comprovante de reserva</div>
+      </div>
+      <h2 style="font-family:monospace;font-size:14px;color:#666;margin-bottom:18px">${b.id}</h2>
+      <table style="width:100%;font-size:14px;border-collapse:collapse">
+        <tr><td style="padding:6px 0;color:#666">Cliente</td><td style="padding:6px 0;text-align:right"><strong>${escapeHtml(b.cliente.nome)}</strong></td></tr>
+        <tr><td style="padding:6px 0;color:#666">WhatsApp</td><td style="padding:6px 0;text-align:right">${escapeHtml(b.cliente.tel)}</td></tr>
+        <tr><td style="padding:6px 0;color:#666">Data</td><td style="padding:6px 0;text-align:right"><strong>${dateBR(b.data)}</strong></td></tr>
+        <tr><td style="padding:6px 0;color:#666">Turno</td><td style="padding:6px 0;text-align:right">${slotLabel(b.slot)}</td></tr>
+      </table>
+      <h3 style="font-size:14px;margin:24px 0 10px 0;border-bottom:1px solid #ccc;padding-bottom:6px">Itens</h3>
+      <table style="width:100%;font-size:14px;border-collapse:collapse">
+        ${b.items.map(it=>`<tr><td style="padding:6px 0">${escapeHtml(it.nome)}</td><td style="padding:6px 0;text-align:right;font-family:monospace">${fmtMoney(it.preco)}</td></tr>`).join('')}
+      </table>
+      <div style="border-top:2px solid #000;margin-top:20px;padding-top:14px;display:flex;justify-content:space-between;font-size:18px;font-weight:bold">
+        <span>TOTAL</span>
+        <span style="font-family:monospace">${fmtMoney(b.total)}</span>
+      </div>
+      <div style="margin-top:30px;font-size:12px;color:#666;text-align:center;border-top:1px dashed #ccc;padding-top:14px">
+        ${escapeHtml(state.config.endereco||'')}<br>
+        ${escapeHtml(state.config.whatsappLabel||state.config.whatsapp||'')}
+      </div>
+    </div>
+  `;
+  $('#printArea').innerHTML = html;
+  $('#printArea').style.display = 'block';
+  window.print();
+  setTimeout(()=>{ $('#printArea').style.display='none' }, 1000);
+}
+
+/* =========================================================
+   ADMIN
+   ========================================================= */
+function openAdminLogin(){
+  if(adminLogged){ openAdminPanel(); return; }
+  openModal('adminLoginModal');
+  setTimeout(()=>$('#adminPassInput')?.focus(),100);
+}
+function tryAdminLogin(){
+  const v = $('#adminPassInput').value;
+  if(v === state.config.adminPass){
+    adminLogged = true;
+    closeModal('adminLoginModal');
+    openAdminPanel();
+  } else {
+    toast('Senha incorreta','error');
+  }
+  $('#adminPassInput').value='';
+}
+function openAdminPanel(){
+  openModal('adminModal');
+  switchAdminTab('itens');
+}
+
+let currentAdminTab = 'itens';
+function switchAdminTab(tab){
+  currentAdminTab = tab;
+  $$('.admin-tab').forEach(el=>{
+    el.classList.toggle('active', el.dataset.tab===tab);
+  });
+  const c = $('#adminTabContent');
+  if(tab==='itens') c.innerHTML = renderAdminItens();
+  else if(tab==='galeria') c.innerHTML = renderAdminGaleria();
+  else if(tab==='icones') c.innerHTML = renderAdminIcones();
+  else if(tab==='pix') c.innerHTML = renderAdminPix();
+  else if(tab==='agenda') c.innerHTML = renderAdminAgenda();
+  else if(tab==='config') c.innerHTML = renderAdminConfig();
+}
+
+/* ---- admin: itens ---- */
+function renderAdminItens(){
+  return `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <div>
+        <div style="font-weight:700">Catálogo de itens</div>
+        <div style="font-size:13px;color:var(--mute)">Aparecem na vitrine se "Disponível" estiver marcado.</div>
+      </div>
+      <button class="btn btn-primary" onclick="openItemEdit()">+ Adicionar item</button>
+    </div>
+    <div class="admin-list">
+      ${state.items.length===0
+        ? `<div class="empty-state"><div class="ic">📦</div>Nenhum item ainda. Clique em "+ Adicionar item".</div>`
+        : state.items.map(it=>{
+          const keyMap = {pacote:'catPacote', espaco:'catEspaco', equipamento:'catEquip', extra:'catExtra'};
+          const catKey = keyMap[it.categoria] || 'catExtra';
+          return `
+          <div class="admin-row">
+            <div class="thumb" style="${it.imagemUrl?`background-image:url('${escapeHtml(it.imagemUrl)}')`:''}">
+              ${!it.imagemUrl?iconHtml(catKey,{size:'28px'}):''}
+            </div>
+            <div class="info">
+              <div class="nm">${escapeHtml(it.nome)} ${!it.ativo?'<span style="background:#FEE2E2;color:#991B1B;padding:2px 8px;border-radius:999px;font-size:10px;margin-left:6px">OFF</span>':''}</div>
+              <div class="meta">${fmtMoney(it.preco)} · ${it.unidade==='hora'?'por hora':it.unidade==='unidade'?'por unidade':'por diária'} · ${it.categoria}</div>
+            </div>
+            <div class="acts">
+              <button class="icon-btn" onclick="openItemEdit('${it.id}')" title="Editar">✏️</button>
+              <button class="icon-btn danger" onclick="deleteItem('${it.id}')" title="Excluir">🗑️</button>
+            </div>
+          </div>
+        `;}).join('')}
+    </div>
+  `;
+}
+
+function openItemEdit(id){
+  editingItemId = id || null;
+  const it = id ? state.items.find(x=>x.id===id) : null;
+  $('#itemEditTitle').textContent = it?'Editar item':'Adicionar item';
+  $('#iemNome').value = it?.nome || '';
+  $('#iemDesc').value = it?.desc || '';
+  $('#iemPreco').value = it?.preco || '';
+  $('#iemUnidade').value = it?.unidade || 'diaria';
+  $('#iemCategoria').value = it?.categoria || 'espaco';
+  $('#iemImagemUrl').value = it?.imagemUrl || '';
+  $('#iemVideoUrl').value = it?.videoUrl || '';
+  $('#iemAtivo').checked = it ? !!it.ativo : true;
+  $('#iemImagemFile').value = '';
+  openModal('itemEditModal');
+
+  $('#iemImagemFile').onchange = async (e)=>{
+    const f = e.target.files[0];
+    if(!f) return;
+    if(f.size > 1024*1024*1.5){ toast('Imagem muito grande. Máximo 1.5MB','error'); return; }
+    const b64 = await fileToBase64(f);
+    $('#iemImagemUrl').value = b64;
+    toast('Imagem carregada ✓','success');
+  };
+}
+
+function fileToBase64(file){
+  return new Promise((res, rej)=>{
+    const r = new FileReader();
+    r.onload = ()=>res(r.result);
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
+}
+
+function saveItem(){
+  const nome = $('#iemNome').value.trim();
+  const preco = Number($('#iemPreco').value);
+  if(!nome){ toast('Preencha o nome','error'); return; }
+  if(!preco || preco < 0){ toast('Preço inválido','error'); return; }
+  const data = {
+    nome,
+    desc: $('#iemDesc').value.trim(),
+    preco,
+    unidade: $('#iemUnidade').value,
+    categoria: $('#iemCategoria').value,
+    imagemUrl: $('#iemImagemUrl').value.trim(),
+    videoUrl: $('#iemVideoUrl').value.trim(),
+    ativo: $('#iemAtivo').checked,
+  };
+  if(editingItemId){
+    const i = state.items.findIndex(x=>x.id===editingItemId);
+    if(i>=0) state.items[i] = {...state.items[i], ...data};
+  } else {
+    state.items.push({id:uid('IT'), ...data});
+  }
+  saveState();
+  closeModal('itemEditModal');
+  switchAdminTab('itens');
+  renderItems();
+  toast('Item salvo ✓','success');
+}
+
+function deleteItem(id){
+  if(!confirm('Excluir este item? Reservas anteriores não serão afetadas.')) return;
+  state.items = state.items.filter(x=>x.id!==id);
+  saveState();
+  switchAdminTab('itens');
+  renderItems();
+  toast('Item excluído','success');
+}
+
+/* ---- admin: galeria ---- */
+function renderAdminGaleria(){
+  return `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <div>
+        <div style="font-weight:700">Galeria do topo</div>
+        <div style="font-size:13px;color:var(--mute)">As 3 primeiras aparecem na home. Adicione fotos ou vídeos.</div>
+      </div>
+      <button class="btn btn-primary" onclick="addGalleryItem()">+ Adicionar</button>
+    </div>
+    <input type="file" id="galFile" accept="image/*,video/*" style="display:none">
+    <div class="admin-list">
+      ${state.gallery.length===0
+        ? `<div class="empty-state"><div class="ic">📸</div>Galeria vazia. Adicione fotos ou vídeos.</div>`
+        : state.gallery.map((g,i)=>`
+          <div class="admin-row">
+            <div class="thumb" style="${g.tipo==='image'?`background-image:url('${escapeHtml(g.url)}')`:'background:var(--ink);color:white'}">
+              ${g.tipo==='video'?'🎬':''}
+            </div>
+            <div class="info">
+              <div class="nm">${g.tipo==='video'?'Vídeo':'Foto'} #${i+1}</div>
+              <div class="meta" style="word-break:break-all">${escapeHtml(g.url.length>60?g.url.slice(0,60)+'…':g.url)}</div>
+            </div>
+            <div class="acts">
+              ${i>0?`<button class="icon-btn" onclick="moveGallery(${i},-1)" title="Subir">↑</button>`:''}
+              ${i<state.gallery.length-1?`<button class="icon-btn" onclick="moveGallery(${i},1)" title="Descer">↓</button>`:''}
+              <button class="icon-btn danger" onclick="deleteGallery(${i})" title="Excluir">🗑️</button>
+            </div>
+          </div>
+        `).join('')}
+    </div>
+  `;
+}
+function addGalleryItem(){
+  const choice = prompt('Cole uma URL de imagem ou vídeo (deixe vazio para enviar arquivo):');
+  if(choice === null) return;
+  if(choice.trim()){
+    const url = choice.trim();
+    const tipo = /\.(mp4|webm|mov)$/i.test(url) ? 'video' : 'image';
+    state.gallery.push({tipo, url});
+    saveState();
+    switchAdminTab('galeria');
+    renderHeroMedia();
+    toast('Item adicionado ✓','success');
+    return;
+  }
+  // upload arquivo
+  const inp = $('#galFile');
+  inp.value = '';
+  inp.onchange = async (e)=>{
+    const f = e.target.files[0]; if(!f) return;
+    if(f.size > 1024*1024*2){ toast('Arquivo muito grande. Máximo 2MB','error'); return; }
+    const b64 = await fileToBase64(f);
+    state.gallery.push({tipo: f.type.startsWith('video')?'video':'image', url:b64});
+    saveState();
+    switchAdminTab('galeria');
+    renderHeroMedia();
+    toast('Arquivo enviado ✓','success');
+  };
+  inp.click();
+}
+function deleteGallery(i){
+  if(!confirm('Excluir este item da galeria?')) return;
+  state.gallery.splice(i,1);
+  saveState();
+  switchAdminTab('galeria');
+  renderHeroMedia();
+}
+function moveGallery(i, delta){
+  const j = i+delta;
+  if(j<0 || j>=state.gallery.length) return;
+  [state.gallery[i], state.gallery[j]] = [state.gallery[j], state.gallery[i]];
+  saveState();
+  switchAdminTab('galeria');
+  renderHeroMedia();
+}
+
+/* ---- admin: ícones ---- */
+function renderAdminIcones(){
+  const grupos = [
+    {titulo:'Logo da marca (topo do site)', icones:[
+      {key:'logo', label:'Logo Kid Park'},
+    ]},
+    {titulo:'Seção "Como funciona" (3 passos)', icones:[
+      {key:'step1', label:'Passo 1 — Escolha a data'},
+      {key:'step2', label:'Passo 2 — Monte o combo'},
+      {key:'step3', label:'Passo 3 — Pague por PIX'},
+    ]},
+    {titulo:'Cartões de contato', icones:[
+      {key:'contactWA', label:'WhatsApp'},
+      {key:'contactIG', label:'Instagram'},
+      {key:'contactYT', label:'YouTube'},
+      {key:'contactAddr', label:'Endereço'},
+    ]},
+    {titulo:'Categorias de itens (placeholder quando item não tem foto)', icones:[
+      {key:'catPacote', label:'Pacote'},
+      {key:'catEspaco', label:'Espaço'},
+      {key:'catEquip',  label:'Equipamento'},
+      {key:'catExtra',  label:'Extra'},
+    ]},
+    {titulo:'Hero — cartões vazios (quando a galeria tem menos de 3 fotos)', icones:[
+      {key:'heroEmpty1', label:'Cartão 1'},
+      {key:'heroEmpty2', label:'Cartão 2'},
+      {key:'heroEmpty3', label:'Cartão 3'},
+    ]},
+  ];
+
+  return `
+    <div style="margin-bottom:16px">
+      <div style="font-weight:700">Personalizar ícones</div>
+      <div style="font-size:13px;color:var(--mute)">
+        Cada ícone do site pode ser substituído por uma imagem sua. Se você não enviar nada, o emoji padrão aparece.
+        Use PNG transparente quando possível. Limite: <strong>500 KB</strong> por ícone.
+      </div>
+    </div>
+
+    ${grupos.map(g => `
+      <div style="margin-bottom:24px">
+        <div style="font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--pool-deep);margin-bottom:10px">
+          ${g.titulo}
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px">
+          ${g.icones.map(item => {
+            const ic = state.config.icones[item.key] || {def:'•', url:''};
+            const tipo = ic.url ? 'image' : 'emoji';
+            return `
+              <div style="background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;align-items:center;gap:10px">
+                <div style="font-size:11px;color:var(--mute);text-align:center">${item.label}</div>
+                <div style="width:72px;height:72px;background:white;border:1px solid var(--line);border-radius:12px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+                  ${ic.url
+                    ? `<img src="${escapeHtml(ic.url)}" alt="" style="width:100%;height:100%;object-fit:contain">`
+                    : `<span style="font-size:42px;line-height:1">${ic.def}</span>`}
+                </div>
+                <div style="font-size:10px;color:${tipo==='image'?'var(--mint)':'var(--mute)'};font-weight:600">
+                  ${tipo==='image'?'✓ IMAGEM CUSTOM':'EMOJI PADRÃO'}
+                </div>
+                <input type="file" id="icoFile_${item.key}" accept="image/*" style="display:none" onchange="uploadIcone('${item.key}', this)">
+                <div style="display:flex;gap:6px;width:100%">
+                  <button class="btn-secondary" style="flex:1;padding:8px 6px;font-size:11px" onclick="document.getElementById('icoFile_${item.key}').click()">
+                    📤 ${ic.url?'Trocar':'Enviar'}
+                  </button>
+                  ${ic.url
+                    ? `<button class="btn-secondary" style="padding:8px 10px;font-size:11px" onclick="resetIcone('${item.key}')" title="Voltar ao emoji padrão">↺</button>`
+                    : ''}
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `).join('')}
+
+    <div style="margin-top:24px;padding:14px;background:rgba(8,145,178,.06);border:1px solid rgba(8,145,178,.2);border-radius:12px;font-size:12px;color:var(--ink-soft)">
+      💡 <strong>Dica:</strong> Para o logo, use uma imagem quadrada com fundo transparente. Para os ícones de contato e categorias, qualquer formato quadrado funciona bem.
+    </div>
+  `;
+}
+
+function uploadIcone(key, input){
+  const file = input.files[0];
+  if(!file) return;
+  if(file.size > 500*1024){
+    toast('Imagem muito grande. Máximo 500 KB por ícone.', 'error');
+    input.value = '';
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = e => {
+    if(!state.config.icones[key]) state.config.icones[key] = {def:'•', url:''};
+    state.config.icones[key].url = e.target.result;
+    saveState();
+    renderAll();
+    switchAdminTab('icones');
+    toast('Ícone atualizado ✓', 'success');
+  };
+  reader.readAsDataURL(file);
+}
+
+function resetIcone(key){
+  if(!confirm('Voltar ao emoji padrão para este ícone?')) return;
+  if(state.config.icones[key]){
+    state.config.icones[key].url = '';
+    saveState();
+    renderAll();
+    switchAdminTab('icones');
+    toast('Ícone resetado ✓', 'success');
+  }
+}
+
+/* ---- admin: pix ---- */
+function renderAdminPix(){
+  const p = state.pix;
+  return `
+    <div style="margin-bottom:16px">
+      <div style="font-weight:700">Configuração do PIX</div>
+      <div style="font-size:13px;color:var(--mute)">Estes dados aparecem na tela de pagamento dos clientes.</div>
+    </div>
+    <div class="field">
+      <label>Chave PIX <span class="req">*</span></label>
+      <input id="pixChave" value="${escapeHtml(p.chave)}" placeholder="CPF, e-mail, telefone ou chave aleatória">
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Nome do beneficiário</label>
+        <input id="pixNome" value="${escapeHtml(p.nomeBeneficiario)}" placeholder="Nome que aparece no PIX">
+      </div>
+      <div class="field">
+        <label>Banco</label>
+        <input id="pixBanco" value="${escapeHtml(p.banco)}" placeholder="Nubank, Itaú, BB…">
+      </div>
+    </div>
+    <div class="field">
+      <label>QR Code (URL ou upload)</label>
+      <input id="pixQrUrl" value="${escapeHtml(p.qrUrl)}" placeholder="https://… ou envie imagem">
+      <input type="file" id="pixQrFile" accept="image/*" style="margin-top:8px">
+      <div class="help">⚠ O QR não inclui valor — o cliente digita ao pagar.</div>
+    </div>
+    ${(p.qrBase64||p.qrUrl)?`<div style="text-align:center;margin:14px 0"><img src="${escapeHtml(p.qrBase64||p.qrUrl)}" style="max-width:160px;border-radius:8px;border:1px solid var(--line)"></div>`:''}
+    <button class="btn-block" onclick="savePixConfig()" style="margin-top:14px">Salvar PIX</button>
+  `;
+}
+
+function savePixConfig(){
+  const fileInp = $('#pixQrFile');
+  const doSave = (qrBase64) => {
+    state.pix = {
+      chave: $('#pixChave').value.trim(),
+      nomeBeneficiario: $('#pixNome').value.trim(),
+      banco: $('#pixBanco').value.trim(),
+      qrUrl: $('#pixQrUrl').value.trim(),
+      qrBase64: qrBase64 ?? state.pix.qrBase64,
+    };
+    saveState();
+    switchAdminTab('pix');
+    toast('PIX salvo ✓','success');
+  };
+  if(fileInp.files?.[0]){
+    const f = fileInp.files[0];
+    if(f.size > 1024*1024){ toast('QR muito grande. Máximo 1MB','error'); return; }
+    fileToBase64(f).then(doSave);
+  } else {
+    doSave();
+  }
+}
+
+/* ---- admin: agenda ---- */
+function renderAdminAgenda(){
+  const bookings = [...state.bookings].sort((a,b)=>{
+    return (a.data+a.slot).localeCompare(b.data+b.slot);
+  });
+  const today = todayStr();
+  const future = bookings.filter(b=>b.data>=today);
+  const past = bookings.filter(b=>b.data<today);
+
+  return `
+    <div style="margin-bottom:16px">
+      <div style="font-weight:700">Agenda de reservas</div>
+      <div style="font-size:13px;color:var(--mute)">Veja quem reservou e em qual dia. Confirme depois de receber o comprovante.</div>
+    </div>
+
+    <div style="background:var(--bg);padding:14px;border-radius:14px;margin-bottom:18px">
+      <div style="font-weight:700;margin-bottom:8px">📅 Bloquear data (uso pessoal/manutenção)</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <input type="date" id="blockDateInp" min="${today}" style="flex:1;padding:10px 12px;border:1.5px solid var(--line-strong);border-radius:10px">
+        <button class="btn btn-primary" onclick="blockDate()" style="padding:10px 18px">Bloquear</button>
+      </div>
+      ${state.blockedDates.length?`
+        <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px">
+          ${state.blockedDates.sort().map(d=>`
+            <span style="background:white;border:1px solid var(--line);padding:6px 12px;border-radius:999px;font-size:12px;font-family:var(--font-mono)">
+              ${dateShort(d)}
+              <a href="#" onclick="event.preventDefault();unblockDate('${d}')" style="margin-left:6px;color:var(--coral);font-weight:700">✕</a>
+            </span>
+          `).join('')}
+        </div>`:''}
+    </div>
+
+    <h4 style="font-family:var(--font-display);font-size:18px;margin-bottom:10px">Próximas (${future.length})</h4>
+    ${future.length===0
+      ? `<div class="empty-state"><div class="ic">📅</div>Nenhuma reserva futura.</div>`
+      : `<div style="margin-bottom:24px">${future.map(b=>renderBookingRow(b)).join('')}</div>`}
+
+    ${past.length?`
+      <details style="margin-top:18px">
+        <summary style="cursor:pointer;font-weight:700;color:var(--mute);font-size:14px">Histórico (${past.length})</summary>
+        <div style="margin-top:10px">${past.map(b=>renderBookingRow(b)).join('')}</div>
+      </details>
+    `:''}
+  `;
+}
+
+function renderBookingRow(b){
+  return `
+    <div class="booking-row">
+      <div class="booking-status ${b.status==='confirmada'?'confirmed':b.status==='cancelled'?'cancelled':'pending'}"></div>
+      <div class="booking-info">
+        <div class="t">${escapeHtml(b.cliente.nome)} · ${escapeHtml(b.cliente.tel)}</div>
+        <div class="m">${dateBR(b.data)} · ${slotLabel(b.slot)} · ${fmtMoney(b.total)} · ${b.items.length} item(ns)</div>
+      </div>
+      <span class="booking-pill ${b.status==='confirmada'?'confirmed':b.status==='cancelled'?'cancelled':'pending'}">
+        ${b.status==='confirmada'?'Confirmada':b.status==='cancelled'?'Cancelada':'Aguardando'}
+      </span>
+      <div class="acts">
+        <button class="icon-btn" onclick="viewBooking('${b.id}')" title="Ver detalhes">👁️</button>
+        ${b.status==='aguardando_comprovante'?`<button class="icon-btn" onclick="confirmBooking('${b.id}')" title="Confirmar pagamento" style="background:var(--mint);border-color:var(--mint);color:var(--ink)">✓</button>`:''}
+        <button class="icon-btn danger" onclick="cancelBooking('${b.id}')" title="Cancelar">✕</button>
+      </div>
+    </div>
+  `;
+}
+
+function viewBooking(id){
+  const b = state.bookings.find(x=>x.id===id);
+  if(!b) return;
+  const items = b.items.map(it=>`• ${it.nome} — ${fmtMoney(it.preco)}`).join('\n');
+  alert(`RESERVA ${b.id}\n\nCliente: ${b.cliente.nome}\nTel: ${b.cliente.tel}\n${b.cliente.evento?'Evento: '+b.cliente.evento+'\n':''}${b.cliente.obs?'Obs: '+b.cliente.obs+'\n':''}\nData: ${dateBR(b.data)}\nTurno: ${slotLabel(b.slot)}\nStatus: ${b.status}\n\nItens:\n${items}\n\nTOTAL: ${fmtMoney(b.total)}`);
+}
+
+function confirmBooking(id){
+  if(!confirm('Confirmar pagamento desta reserva?')) return;
+  const b = state.bookings.find(x=>x.id===id);
+  if(!b) return;
+  b.status = 'confirmada';
+  b.confirmedAt = new Date().toISOString();
+  saveState();
+  backendCall('confirmBooking', {bookingId:id});
+  switchAdminTab('agenda');
+  toast('Reserva confirmada ✓','success');
+}
+
+function cancelBooking(id){
+  if(!confirm('Cancelar esta reserva? A data ficará livre novamente.')) return;
+  const b = state.bookings.find(x=>x.id===id);
+  if(!b) return;
+  b.status = 'cancelled';
+  b.cancelledAt = new Date().toISOString();
+  saveState();
+  backendCall('cancelBooking', {bookingId:id});
+  switchAdminTab('agenda');
+  toast('Reserva cancelada','success');
+}
+
+function blockDate(){
+  const d = $('#blockDateInp').value;
+  if(!d){ toast('Escolha uma data','error'); return; }
+  if(state.blockedDates.includes(d)){ toast('Já bloqueada','error'); return; }
+  state.blockedDates.push(d);
+  saveState();
+  switchAdminTab('agenda');
+  toast('Data bloqueada','success');
+}
+function unblockDate(d){
+  state.blockedDates = state.blockedDates.filter(x=>x!==d);
+  saveState();
+  switchAdminTab('agenda');
+}
+
+/* ---- admin: configurações ---- */
+function renderAdminConfig(){
+  const c = state.config;
+  return `
+    <div style="margin-bottom:16px">
+      <div style="font-weight:700">Identidade e contato</div>
+    </div>
+    <div class="field"><label>Nome do negócio</label><input id="cfgBrand" value="${escapeHtml(c.brandName)}"></div>
+    <div class="field"><label>Frase do topo</label><textarea id="cfgLede" rows="2">${escapeHtml(c.heroLede)}</textarea></div>
+    <div class="field-row">
+      <div class="field"><label>Stat 1 — número</label><input id="cfgStat1" value="${escapeHtml(c.stat1)}"></div>
+      <div class="field"><label>Stat 1 — rótulo</label><input id="cfgStat1lbl" value="${escapeHtml(c.stat1lbl)}"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Stat 2 — número</label><input id="cfgStat2" value="${escapeHtml(c.stat2)}"></div>
+      <div class="field"><label>Stat 2 — rótulo</label><input id="cfgStat2lbl" value="${escapeHtml(c.stat2lbl)}"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Stat 3 — número</label><input id="cfgStat3" value="${escapeHtml(c.stat3)}"></div>
+      <div class="field"><label>Stat 3 — rótulo</label><input id="cfgStat3lbl" value="${escapeHtml(c.stat3lbl)}"></div>
+    </div>
+    <div class="field"><label>Endereço</label><input id="cfgEndereco" value="${escapeHtml(c.endereco)}"></div>
+    <div class="field-row">
+      <div class="field"><label>WhatsApp (só números, com DDI)</label><input id="cfgWhats" value="${escapeHtml(c.whatsapp)}" placeholder="5585999999999"></div>
+      <div class="field"><label>WhatsApp (rótulo visível)</label><input id="cfgWhatsLbl" value="${escapeHtml(c.whatsappLabel)}" placeholder="(85) 9 9999-9999"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Instagram (URL)</label><input id="cfgInsta" value="${escapeHtml(c.instagram)}"></div>
+      <div class="field"><label>Instagram (rótulo)</label><input id="cfgInstaLbl" value="${escapeHtml(c.instagramLabel)}"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>YouTube (URL)</label><input id="cfgYt" value="${escapeHtml(c.youtube)}"></div>
+      <div class="field"><label>YouTube (rótulo)</label><input id="cfgYtLbl" value="${escapeHtml(c.youtubeLabel)}"></div>
+    </div>
+    <div class="field"><label>E-mail</label><input id="cfgEmail" value="${escapeHtml(c.email)}"></div>
+
+    <div style="margin:24px 0 12px 0;font-weight:700">Turnos (horários)</div>
+    <div class="field-row">
+      <div class="field"><label>Diurno — início</label><input id="cfgHmI" type="time" value="${c.horaInicioManha}"></div>
+      <div class="field"><label>Diurno — fim</label><input id="cfgHmF" type="time" value="${c.horaFimManha}"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Tarde/Noite — início</label><input id="cfgHtI" type="time" value="${c.horaInicioTarde}"></div>
+      <div class="field"><label>Tarde/Noite — fim</label><input id="cfgHtF" type="time" value="${c.horaFimTarde}"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Dia inteiro — início</label><input id="cfgHdI" type="time" value="${c.horaInicioDia}"></div>
+      <div class="field"><label>Dia inteiro — fim</label><input id="cfgHdF" type="time" value="${c.horaFimDia}"></div>
+    </div>
+    <div class="field" style="margin-top:8px">
+      <label>Preço da hora extra (R$)</label>
+      <input id="cfgHoraExtra" type="number" min="0" step="1" value="${Number(c.precoHoraExtra)||0}">
+      <div style="font-size:11px;color:var(--mute);margin-top:4px">Cobrado quando o cliente adiciona horas extras ao turno escolhido.</div>
+    </div>
+
+    <div style="margin:24px 0 12px 0;font-weight:700">Segurança & integração</div>
+    <div class="field">
+      <label>Senha do admin</label>
+      <input id="cfgPass" type="text" value="${escapeHtml(c.adminPass)}">
+    </div>
+    <div class="field">
+      <label>URL do Apps Script (Google) — opcional</label>
+      <input id="cfgBackend" value="${escapeHtml(c.backendUrl)}" placeholder="https://script.google.com/macros/s/.../exec">
+      <div class="help">Cole aqui a URL do seu Web App (Apps Script) para salvar reservas no Google Calendar e Sheets. Veja o arquivo de instruções.</div>
+    </div>
+
+    <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
+      <button class="btn-block" onclick="saveConfig()">Salvar configurações</button>
+      <button class="btn-secondary" onclick="testBackend()">🔌 Testar backend</button>
+      <button class="btn-secondary" onclick="exportData()">⬇ Exportar dados</button>
+      <button class="btn-secondary" onclick="importData()">⬆ Importar dados</button>
+      <button class="btn-danger" onclick="resetAll()">🔄 Resetar tudo</button>
+    </div>
+  `;
+}
+
+function saveConfig(){
+  state.config = {
+    ...state.config,
+    brandName: $('#cfgBrand').value.trim() || 'Kid Park',
+    heroLede: $('#cfgLede').value.trim(),
+    stat1: $('#cfgStat1').value.trim(),
+    stat1lbl: $('#cfgStat1lbl').value.trim(),
+    stat2: $('#cfgStat2').value.trim(),
+    stat2lbl: $('#cfgStat2lbl').value.trim(),
+    stat3: $('#cfgStat3').value.trim(),
+    stat3lbl: $('#cfgStat3lbl').value.trim(),
+    endereco: $('#cfgEndereco').value.trim(),
+    whatsapp: $('#cfgWhats').value.trim(),
+    whatsappLabel: $('#cfgWhatsLbl').value.trim(),
+    instagram: $('#cfgInsta').value.trim(),
+    instagramLabel: $('#cfgInstaLbl').value.trim(),
+    youtube: $('#cfgYt').value.trim(),
+    youtubeLabel: $('#cfgYtLbl').value.trim(),
+    email: $('#cfgEmail').value.trim(),
+    horaInicioManha: $('#cfgHmI').value,
+    horaFimManha: $('#cfgHmF').value,
+    horaInicioTarde: $('#cfgHtI').value,
+    horaFimTarde: $('#cfgHtF').value,
+    horaInicioDia: $('#cfgHdI').value,
+    horaFimDia: $('#cfgHdF').value,
+    precoHoraExtra: Number($('#cfgHoraExtra').value)||0,
+    adminPass: $('#cfgPass').value || 'kidpark2026',
+    backendUrl: $('#cfgBackend').value.trim(),
+  };
+  saveState();
+  renderAll();
+  toast('Configurações salvas ✓','success');
+}
+
+async function testBackend(){
+  const url = $('#cfgBackend').value.trim();
+  if(!url){ toast('Cole a URL do Apps Script primeiro','error'); return; }
+  toast('Testando…');
+  try{
+    const r = await fetch(url, {
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({action:'ping'}),
+    });
+    const j = await r.json();
+    if(j.ok) toast('✓ Backend respondeu OK!','success');
+    else toast('Backend respondeu mas com erro: '+(j.error||'?'),'error');
+  }catch(e){
+    toast('Falhou: '+e.message,'error');
+  }
+}
+
+function exportData(){
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `kidpark-backup-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+}
+function importData(){
+  const inp = document.createElement('input');
+  inp.type='file'; inp.accept='application/json';
+  inp.onchange = (e)=>{
+    const f = e.target.files[0]; if(!f) return;
+    const r = new FileReader();
+    r.onload = ()=>{
+      try{
+        const parsed = JSON.parse(r.result);
+        if(!parsed.config || !parsed.items){ toast('Arquivo inválido','error'); return; }
+        if(!confirm('Substituir todos os dados atuais pelo backup?')) return;
+        state = parsed;
+        saveState();
+        renderAll();
+        switchAdminTab('config');
+        toast('Dados importados ✓','success');
+      }catch(err){ toast('Erro ao ler arquivo','error'); }
+    };
+    r.readAsText(f);
+  };
+  inp.click();
+}
+function resetAll(){
+  if(!confirm('Apagar TUDO e voltar aos dados de exemplo? Isso não pode ser desfeito.')) return;
+  if(!confirm('Tem certeza absoluta? Reservas e configurações serão perdidas.')) return;
+  localStorage.removeItem(LS_KEY);
+  state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+  saveState();
+  renderAll();
+  switchAdminTab('config');
+  toast('Tudo resetado','success');
+}
+
+/* =========================================================
+   INIT
+   ========================================================= */
+document.addEventListener('keydown', (e)=>{
+  if(e.key==='Escape'){
+    if($('#contractModal')?.classList.contains('show')) stopCamera();
+    $$('.modal.show').forEach(m=>m.classList.remove('show'));
+    document.body.style.overflow='';
+  }
+});
+document.addEventListener('click', (e)=>{
+  if(e.target.classList.contains('modal')){
+    if(e.target.id === 'contractModal') stopCamera();
+    e.target.classList.remove('show');
+    document.body.style.overflow='';
+  }
+});
+// Enter no login
+document.addEventListener('keypress', (e)=>{
+  if(e.key==='Enter' && $('#adminLoginModal').classList.contains('show')){
+    tryAdminLogin();
+  }
+});
+
+// Acesso por URL ?admin=1
+if(new URLSearchParams(location.search).get('admin')==='1'){
+  setTimeout(openAdminLogin, 500);
+}
+
+renderAll();
+loadFromBackend(); // tenta puxar dados do Apps Script se configurado
+</script>
+</body>
+</html>

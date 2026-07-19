@@ -134,10 +134,21 @@ export default function AdminPage() {
 
   // Booking actions
   const confirmBooking = async id => {
-    if (!confirm('Confirmar recebimento do SINAL de 50%?')) return;
+    const isTotal = state.config.checkoutPixType === 'total';
+    const msg = isTotal
+      ? 'Confirmar recebimento do PAGAMENTO INTEGRAL (100%)?'
+      : 'Confirmar recebimento do SINAL de 50%?';
+    const successMsg = isTotal
+      ? 'Pagamento integral de 100% confirmado ✓'
+      : 'Sinal de 50% confirmado com sucesso ✓';
+    const errPrefix = isTotal
+      ? 'Erro de conexão ao confirmar pagamento integral'
+      : 'Erro de conexão ao confirmar sinal';
+
+    if (!confirm(msg)) return;
     try {
       if (!supabase) {
-        console.warn("Supabase not configured, confirming signal in localStorage.");
+        console.warn("Supabase not configured, confirming booking in localStorage.");
         const localBookings = JSON.parse(localStorage.getItem('kp_bookings') || '[]');
         const idx = localBookings.findIndex(x => x.id === id);
         if (idx >= 0) {
@@ -145,16 +156,16 @@ export default function AdminPage() {
           localStorage.setItem('kp_bookings', JSON.stringify(localBookings));
         }
         dispatch({ type: 'UPDATE_BOOKING', payload: { id, status: 'confirmada', confirmedAt: new Date().toISOString() } });
-        toast('Sinal de 50% confirmado com sucesso ✓', 'success');
+        toast(successMsg, 'success');
         return;
       }
       const { error } = await supabase.from('kp_bookings').update({ status: 'confirmada' }).eq('id', id);
       if (error) { toast('Erro no Supabase: ' + error.message, 'error'); return; }
       dispatch({ type: 'UPDATE_BOOKING', payload: { id, status: 'confirmada', confirmedAt: new Date().toISOString() } });
-      toast('Sinal de 50% confirmado com sucesso ✓', 'success');
+      toast(successMsg, 'success');
     } catch (err) {
       console.error(err);
-      toast('Erro de conexão ao confirmar sinal', 'error');
+      toast(errPrefix, 'error');
     }
   };
 
@@ -649,7 +660,7 @@ export default function AdminPage() {
                     </span>
                     <div className="acts">
                       <button className="icon-btn" onClick={() => viewBooking(b)} title="Ver">👁️</button>
-                      {b.status === 'aguardando_sinal' && <button className="icon-btn" onClick={() => confirmBooking(b.id)} title="Confirmar Sinal (50%)" style={{ background: 'var(--mint)', borderColor: 'var(--mint)', color: 'var(--ink)' }}>✓</button>}
+                      {b.status === 'aguardando_sinal' && <button className="icon-btn" onClick={() => confirmBooking(b.id)} title={state.config.checkoutPixType === 'total' ? "Confirmar Pagamento (100%)" : "Confirmar Sinal (50%)"} style={{ background: 'var(--mint)', borderColor: 'var(--mint)', color: 'var(--ink)' }}>✓</button>}
                       {b.status === 'confirmada' && <button className="icon-btn" onClick={() => quitarBooking(b.id)} title="Quitar Total (100%)" style={{ background: 'var(--sun)', borderColor: 'var(--sun)', color: 'var(--ink)' }}>💰</button>}
                       {b.status !== 'cancelled' && <button className="icon-btn danger" onClick={() => cancelBooking(b.id)} title="Cancelar">✕</button>}
                     </div>
@@ -832,7 +843,9 @@ export default function AdminPage() {
 
               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10, marginTop: 8 }}>
                 {b.status === 'aguardando_sinal' && (
-                  <button className="btn btn-primary" onClick={() => { setViewModal(false); confirmSinal(b.id); }}>Confirmar Sinal (50%)</button>
+                  <button className="btn btn-primary" onClick={() => { setViewModal(false); confirmBooking(b.id); }}>
+                    {state.config.checkoutPixType === 'total' ? 'Confirmar Pagamento (100%)' : 'Confirmar Sinal (50%)'}
+                  </button>
                 )}
                 {b.status === 'confirmada' && (
                   <button className="btn btn-primary" style={{ background: '#059669' }} onClick={() => { setViewModal(false); quitarBooking(b.id); }}>Quitar Reserva</button>

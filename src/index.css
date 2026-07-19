@@ -172,6 +172,7 @@ a{color:inherit;text-decoration:none}
 .cal-title{font-family:var(--font-display);font-weight:700;font-size:18px;text-transform:capitalize}
 .cal-nav{width:36px;height:36px;border-radius:var(--radius-sm);background:#fff;display:grid;place-items:center;font-weight:700;box-shadow:var(--shadow-sm);transition:background .15s,color .15s}
 .cal-nav:hover{background:var(--pool);color:#fff}
+.cal-nav:disabled{opacity:.35;cursor:not-allowed;pointer-events:none}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
 .cal-wd{font-size:11px;font-weight:700;color:var(--mute);text-align:center;padding:6px 0;text-transform:uppercase}
 .cal-day{aspect-ratio:1;border-radius:var(--radius-sm);background:#fff;display:grid;place-items:center;font-weight:600;font-size:14px;transition:background .15s,color .15s,transform .15s;position:relative;cursor:pointer}

@@ -359,28 +359,33 @@ export default function BookingPage() {
 
   // PDF Generation Logic
   const buildContractHTMLForPDF = (b) => {
-    const cl = b.cliente;
-    const itemsStr = b.items.map(it => `${it.nome} (${fmtMoney(it.preco)})`).join('; ');
-    const horaTxt = slotLabel(b.slot, c);
+    if (!b) return '';
+    const cl = b.cliente || {};
+    const items = b.items || [];
+    const itemsStr = items.map(it => `${it.nome} (${fmtMoney(it.preco)})`).join('; ');
+    const horaTxt = slotLabel(b.slot, c || {});
     const horasExtrasStr = b.horasExtras > 0 ? ` + ${b.horasExtras}h extra(s)` : '';
     const cpfMasked = (cl.cpf || '').replace(/^(\d{3})\.(\d{3})\.(\d{3})/, '***.$2.$3');
     const fotoBase = (b.contrato && b.contrato.fotoBase64) || '';
     const dataAss = (b.contrato && b.contrato.dataAssinatura) || new Date().toISOString();
 
-    const TERMOS_CONTRATO = [
-      'Por meio do presente contrato assumo a RESPONSABILIDADE TOTAL do espaço Kid Park, ficando responsável pelas pessoas que estarão ocupando o referido espaço durante o evento, que acontecerá nas datas e horários especificados acima.',
-      'Estou ciente que o espaço Kid Park NÃO permite eventos abertos ao público, seja ele cobrando bilheteria ou não, sendo permitidos apenas eventos particulares como aniversários, casamentos, sociais etc. O descumprimento pode acarretar no encerramento do evento e os valores pagos pelo contratante NÃO serão reembolsados.',
-      'Fico responsável por todos os bens materiais dentro do espaço Kid Park: mesas, cadeiras, congelador, fogão industrial, caixa de som, geladeira/gelágua, equipamentos de lazer e demais itens da decoração ou estrutura (jarros, plantas, quadros, portas, sanitários, pias etc.). Tendo a consciência de que a perda ou danificação destes itens deverá ser paga pelo contratante mediante acordo.',
-      'Assumo a responsabilidade de orientar os participantes a NÃO utilizarem objetos de vidro ou cortantes dentro da piscina, como copos, garrafas, pratos etc.',
-      'É proibido o consumo de alimentos dentro das piscinas.',
-      'Estou ciente que crianças menores de 3 anos devem estar de fraldas descartáveis para entrar nas piscinas.',
-      'Toda e qualquer pessoa deverá passar no chuveiro antes de entrar na piscina.',
-      'O uso de carros de som é permitido apenas dentro dos limites de volumes legais em decibéis. Caso o limite máximo permitido seja excedido e o evento seja encerrado pela polícia ou órgãos jurídicos, os valores pagos pelo contratante NÃO serão reembolsados.',
-      'Assumo a responsabilidade de orientar os participantes menores de 18 anos a NÃO consumirem bebidas alcoólicas, e tenho ciência de que essa prática é crime previsto por lei.'
-    ];
+    const contractText = (c && c.contratoText) || '';
+    const termsHTML = contractText
+      ? contractText.split('\n').filter(p => p.trim() !== '').map(p => `<p style="margin: 0 0 8px; text-align: justify; font-size: 11.5px; line-height: 1.4;">${p}</p>`).join('')
+      : `<ol style="padding-left:20px;margin:0;font-size:11px;line-height:1.4">
+          <li style="margin-bottom:5px;text-align:justify">Por meio do presente contrato assumo a RESPONSABILIDADE TOTAL do espaço Kid Park, ficando responsável pelas pessoas que estarão ocupando o referido espaço durante o evento, que acontecerá nas datas e horários especificados acima.</li>
+          <li style="margin-bottom:5px;text-align:justify">Estou ciente que o espaço Kid Park NÃO permite eventos abertos ao público, seja ele cobrando bilheteria ou não, sendo permitidos apenas eventos particulares como aniversários, casamentos, sociais etc. O descumprimento pode acarretar no encerramento do evento e os valores pagos pelo contratante NÃO serão reembolsados.</li>
+          <li style="margin-bottom:5px;text-align:justify">Fico responsável por todos os bens materiais dentro do espaço Kid Park: mesas, cadeiras, congelador, fogão industrial, caixa de som, geladeira/gelágua, equipamentos de lazer e demais itens da decoração ou estrutura (jarros, plantas, quadros, portas, sanitários, pias etc.). Tendo a consciência de que a perda ou danificação destes itens deverá ser paga pelo contratante mediante acordo.</li>
+          <li style="margin-bottom:5px;text-align:justify">Assumo a responsabilidade de orientar os participantes a NÃO utilizarem objetos de vidro ou cortantes dentro da piscina, como copos, garrafas, pratos etc.</li>
+          <li style="margin-bottom:5px;text-align:justify">É proibido o consumo de alimentos dentro das piscinas.</li>
+          <li style="margin-bottom:5px;text-align:justify">Estou ciente que crianças menores de 3 anos devem estar de fraldas descartáveis para entrar nas piscinas.</li>
+          <li style="margin-bottom:5px;text-align:justify">Toda e qualquer pessoa deverá passar no chuveiro antes de entrar na piscina.</li>
+          <li style="margin-bottom:5px;text-align:justify">O uso de carros de som é permitido apenas dentro dos limites de volumes legais em decibéis. Caso o limite máximo permitido seja excedido e o evento seja encerrado pela polícia ou órgãos jurídicos, os valores pagos pelo contratante NÃO serão reembolsados.</li>
+          <li style="margin-bottom:5px;text-align:justify">Assumo a responsabilidade de orientar os participantes menores de 18 anos a NÃO consumirem bebidas alcoólicas, e tenho ciência de que essa prática é crime previsto por lei.</li>
+         </ol>`;
 
     return `
-      <div style="width:794px;padding:24px 36px;background:#ffffff;color:#1a2332;font-family:Arial, sans-serif;line-height:1.4;box-sizing:border-box">
+      <div style="width:100%;max-width:794px;padding:12px;background:#ffffff;color:#1a2332;font-family:Arial, sans-serif;line-height:1.4;box-sizing:border-box">
         <h2 style="text-align:center;font-size:20px;text-decoration:underline;margin:0 0 14px;font-weight:700">
           Termo de Responsabilidade / Contrato
         </h2>
@@ -397,9 +402,9 @@ export default function BookingPage() {
           <b>VALOR TOTAL:</b> ${fmtMoney(b.total)}
         </div>
 
-        <ol style="padding-left:20px;margin:0;font-size:11px;line-height:1.4">
-          ${TERMOS_CONTRATO.map(t => `<li style="margin-bottom:5px;text-align:justify">${t}</li>`).join('')}
-        </ol>
+        <div style="margin-bottom:12px;">
+          ${termsHTML}
+        </div>
 
         <table style="width:100%;margin-top:14px;background:#ecfdf5;border:2px solid #6ee7b7;border-radius:12px;border-collapse:separate;border-spacing:0">
           <tr>
@@ -428,7 +433,7 @@ export default function BookingPage() {
         </table>
 
         <div style="text-align:center;margin-top:12px;padding-top:8px;border-top:1px solid #e5e7eb;font-size:10.5px;color:#6b7280">
-          Espaço Kid Park · ${c.endereco || 'Madalena · CE'}
+          Espaço Kid Park · ${(c && c.endereco) || 'Madalena · CE'}
         </div>
       </div>
     `;

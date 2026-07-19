@@ -5,7 +5,7 @@ import { pad, todayStr } from '../lib/utils';
 const MONTHS = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
 const WD = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
 
-export default function Calendar({ selected, onSelect, bookings = [], blockedDates = [], maxMonthsAhead = 2 }) {
+export default function Calendar({ selected, onSelect, bookings = [], blockedDates = [], maxDaysAhead = 60 }) {
   const [cursor, setCursor] = useState(new Date());
   const y = cursor.getFullYear(), m = cursor.getMonth();
   const firstDay = new Date(y, m, 1).getDay();
@@ -13,9 +13,9 @@ export default function Calendar({ selected, onSelect, bookings = [], blockedDat
   const daysPrev = new Date(y, m, 0).getDate();
   const today = todayStr();
 
-  const maxMonths = Number(maxMonthsAhead) || 2;
+  const maxDays = Number(maxDaysAhead) || 60;
   const maxLimitDate = new Date();
-  maxLimitDate.setMonth(maxLimitDate.getMonth() + maxMonths);
+  maxLimitDate.setDate(maxLimitDate.getDate() + maxDays);
   const maxLimitStr = `${maxLimitDate.getFullYear()}-${pad(maxLimitDate.getMonth() + 1)}-${pad(maxLimitDate.getDate())}`;
 
   const currentCursorTime = new Date(y, m, 1).getTime();

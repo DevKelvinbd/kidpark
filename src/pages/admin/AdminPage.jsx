@@ -730,9 +730,9 @@ export default function AdminPage() {
 
             <div style={{ margin: '24px 0 12px 0', fontWeight: 700 }}>Limite de Antecedência do Calendário</div>
             <div className="field">
-              <label>Número máximo de meses futuros permitidos para agendamento</label>
-              <input type="number" min="1" max="24" value={cfgState.maxMonthsAhead || 2} onChange={e => setCfg({ ...cfgState, maxMonthsAhead: Number(e.target.value) || 2 })} />
-              <div className="help">Clientes não poderão agendar datas além deste limite de meses a partir de hoje.</div>
+              <label>Número máximo de dias futuros permitidos para agendamento</label>
+              <input type="number" min="1" max="730" value={cfgState.maxDaysAhead || 60} onChange={e => setCfg({ ...cfgState, maxDaysAhead: Number(e.target.value) || 60 })} />
+              <div className="help">Clientes não poderão agendar datas além deste limite de dias a partir de hoje.</div>
             </div>
 
             <div style={{ margin: '24px 0 12px 0', fontWeight: 700 }}>Turnos (horários)</div>

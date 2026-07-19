@@ -571,7 +571,7 @@ export default function BookingPage() {
           {step === 1 && (
             <>
               <p style={{ marginBottom: 14, color: 'var(--ink-soft)' }}>Escolha um dia livre no calendário. Datas em vermelho já estão reservadas ou bloqueadas.</p>
-              <Calendar selected={date} onSelect={setDate} bookings={state.bookings} blockedDates={state.blockedDates} maxMonthsAhead={c.maxMonthsAhead} />
+              <Calendar selected={date} onSelect={setDate} bookings={state.bookings} blockedDates={state.blockedDates} maxDaysAhead={c.maxDaysAhead} />
               <div style={{ marginTop: 24, display: 'flex', justifyContent: 'space-between', gap: 10 }}>
                 <button className="btn-secondary" onClick={() => nav('/')}>Cancelar</button>
                 <button className="btn btn-primary" onClick={next} disabled={!date}>Continuar →</button>

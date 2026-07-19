@@ -781,7 +781,7 @@ export default function BookingPage() {
                     📝 <strong>Antes do pagamento, é preciso assinar o termo de responsabilidade.</strong>
                     <br /><span style={{ fontSize: 12, opacity: 0.8 }}>A assinatura é digital, por foto (selfie), e é necessária para liberar os dados do PIX.</span>
                   </div>
-                  <button className="btn-block" style={{ background: 'var(--pool-deep)', color: 'white', fontSize: 16, padding: 18 }} onClick={startCamera}>
+                  <button className="btn-block" style={{ background: 'var(--pool-deep)', color: 'white', fontSize: 16, padding: 18 }} onClick={() => { setContractView('read'); setShowContractModal(true); }}>
                     📝 Ler e assinar contrato
                   </button>
                   <div style={{ textAlign: 'center', marginTop: 14, fontSize: 12, color: 'var(--mute)' }}>
@@ -874,7 +874,7 @@ export default function BookingPage() {
               📸 Tire uma selfie clara, olhando para a câmera. Essa foto será sua <strong>assinatura digital</strong> no contrato.
             </p>
             <div className="camera-stage">
-              <video ref={videoRef} autoplay="true" playsinline="true" muted="true" style={{ width: '100%', height: '100%', objectFit: 'cover' }}></video>
+              <video ref={videoRef} autoPlay playsInline muted style={{ width: '100%', height: '100%', objectFit: 'cover' }}></video>
               {!cameraStream && <div className="camera-overlay">Solicitando acesso à câmera…</div>}
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, marginTop: 8 }}>

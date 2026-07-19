@@ -63,7 +63,6 @@ export default function AdminPage() {
           <div className="field">
             <label>Senha</label>
             <input type="password" value={passInput} onChange={e => setPassInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && tryLogin()} placeholder="••••••••" autoFocus />
-            <div className="help">Senha padrão: <code>kidpark2026</code> — altere em Configurações.</div>
           </div>
           <button className="btn-block" onClick={tryLogin}>Entrar</button>
           <button className="btn-secondary" style={{ width: '100%', marginTop: 12 }} onClick={() => nav('/')}>← Voltar ao site</button>
@@ -273,8 +272,8 @@ export default function AdminPage() {
             <td style="width:78px;padding:10px 4px 10px 10px;vertical-align:middle">
               <div style="width:64px;height:64px;border-radius:50%;border:2px solid #6ee7b7;background:#ffffff;overflow:hidden">
                 ${fotoBase
-                  ? `<img src="${fotoBase}" alt="" style="width:64px;height:64px;object-fit:cover;display:block">`
-                  : `<div style="width:64px;height:64px;display:flex;align-items:center;justify-content:center;font-size:28px;color:#9ca3af">👤</div>`}
+        ? `<img src="${fotoBase}" alt="" style="width:64px;height:64px;object-fit:cover;display:block">`
+        : `<div style="width:64px;height:64px;display:flex;align-items:center;justify-content:center;font-size:28px;color:#9ca3af">👤</div>`}
               </div>
             </td>
             <td style="padding:10px 8px;vertical-align:middle">

@@ -8,6 +8,7 @@ const DEFAULT_STATE = {
   loading: true,
   config: {
     brandName: 'Kid Park',
+    checkoutPixType: 'sinal',
     heroLede: 'Duas piscinas, salão amplo, cozinha equipada e estrutura completa pra você só se preocupar com os convidados.',
     stat1: '2', stat1lbl: 'Piscinas',
     stat2: '120', stat2lbl: 'Convidados',

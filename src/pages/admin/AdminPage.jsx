@@ -1,5 +1,5 @@
 /* KID PARK — Admin Panel */
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useStore } from '../../lib/store';
 import { useToast } from '../../hooks/useToast';
@@ -38,6 +38,11 @@ export default function AdminPage() {
   const [cfgState, setCfg] = useState({ ...state.config });
   const [pixState, setPixState] = useState({ ...state.pix });
   const [blockDate, setBlockDate] = useState('');
+
+  useEffect(() => {
+    setCfg({ ...state.config });
+    setPixState({ ...state.pix });
+  }, [state.config, state.pix]);
 
   // Login
   if (!loggedIn) {
@@ -702,6 +707,15 @@ export default function AdminPage() {
               <div className="field"><label>YouTube (rótulo)</label><input value={cfgState.youtubeLabel} onChange={e => setCfg({ ...cfgState, youtubeLabel: e.target.value })} /></div>
             </div>
             <div className="field"><label>E-mail</label><input value={cfgState.email} onChange={e => setCfg({ ...cfgState, email: e.target.value })} /></div>
+
+            <div style={{ margin: '24px 0 12px 0', fontWeight: 700 }}>Pagamento no Checkout</div>
+            <div className="field">
+              <label>Tipo de cobrança no agendamento</label>
+              <select value={cfgState.checkoutPixType || 'sinal'} onChange={e => setCfg({ ...cfgState, checkoutPixType: e.target.value })} style={{ width: '100%', padding: '10px 14px', borderRadius: 8, border: '1px solid var(--border)', background: '#fff', fontSize: 14 }}>
+                <option value="sinal">Sinal (cobrar 50% do total)</option>
+                <option value="total">Valor Total (cobrar 100% do total)</option>
+              </select>
+            </div>
 
             <div style={{ margin: '24px 0 12px 0', fontWeight: 700 }}>Turnos (horários)</div>
             <div className="field-row">

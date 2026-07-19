@@ -242,9 +242,12 @@ export default function BookingPage() {
     const tel = (c.whatsapp || '').replace(/\D/g, '');
     if (!tel) { toast('WhatsApp do admin não configurado', 'error'); return; }
     const itemsStr = b.items.map(it => `- ${it.nome}: ${fmtMoney(it.preco)}`).join('\n');
-    const valorSinal = b.total / 2;
-    const valorRestante = b.total / 2;
-    const msg = `Olá! Quero confirmar minha reserva no ${c.brandName}.\n\n🎉 *Reserva ${b.id}*\n👤 ${b.cliente.nome}\n🪪 CPF: ${b.cliente.cpf}\n📱 ${b.cliente.tel}\n📅 ${dateBR(b.data)}\n⏰ ${slotLabel(b.slot, c)}\n\n*Itens:*\n${itemsStr}\n\n💰 *Total da locação: R$ ${fmtMoneyFull(b.total)}*\n💳 *Sinal (50% pago no PIX): R$ ${fmtMoneyFull(valorSinal)}*\n💵 *Restante (a pagar no evento): R$ ${fmtMoneyFull(valorRestante)}*\n\nSegue o comprovante 👇`;
+    const cobrancaTotal = c.checkoutPixType === 'total';
+    const valorSinal = cobrancaTotal ? b.total : b.total / 2;
+    const valorRestante = cobrancaTotal ? 0 : b.total / 2;
+    const msg = cobrancaTotal
+      ? `Olá! Quero confirmar minha reserva no ${c.brandName}.\n\n🎉 *Reserva ${b.id}*\n👤 ${b.cliente.nome}\n🪪 CPF: ${b.cliente.cpf}\n📱 ${b.cliente.tel}\n📅 ${dateBR(b.data)}\n⏰ ${slotLabel(b.slot, c)}\n\n*Itens:*\n${itemsStr}\n\n💰 *Total da locação (100% pago no PIX): R$ ${fmtMoneyFull(b.total)}*\n\nSegue o comprovante 👇`
+      : `Olá! Quero confirmar minha reserva no ${c.brandName}.\n\n🎉 *Reserva ${b.id}*\n👤 ${b.cliente.nome}\n🪪 CPF: ${b.cliente.cpf}\n📱 ${b.cliente.tel}\n📅 ${dateBR(b.data)}\n⏰ ${slotLabel(b.slot, c)}\n\n*Itens:*\n${itemsStr}\n\n💰 *Total da locação: R$ ${fmtMoneyFull(b.total)}*\n💳 *Sinal (50% pago no PIX): R$ ${fmtMoneyFull(valorSinal)}*\n💵 *Restante (a pagar no evento): R$ ${fmtMoneyFull(valorRestante)}*\n\nSegue o comprovante 👇`;
     window.open(`https://wa.me/${tel}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
@@ -717,11 +720,12 @@ export default function BookingPage() {
 
           {/* STEP 5: Review */}
           {step === 5 && (() => {
-            const valorSinal = total / 2;
-            const valorRestante = total / 2;
+            const cobrancaTotal = c.checkoutPixType === 'total';
+            const valorSinal = cobrancaTotal ? total : total / 2;
+            const valorRestante = cobrancaTotal ? 0 : total / 2;
             return (
               <>
-                <div className="pix-warn">⚠️ <strong>Confira tudo antes de pagar.</strong> A reserva de 50% de sinal garante a sua data.</div>
+                <div className="pix-warn">⚠️ <strong>Confira tudo antes de pagar.</strong> {cobrancaTotal ? 'O pagamento do valor total garante a sua data.' : 'A reserva de 50% de sinal garante a sua data.'}</div>
                 <div className="summary">
                   <div className="summary-row"><span className="k">📅 Data</span><span className="v">{dateBR(date)}</span></div>
                   <div className="summary-row"><span className="k">⏰ Turno</span><span className="v">{slotLabel(slot, c)}</span></div>
@@ -739,12 +743,20 @@ export default function BookingPage() {
                   {horasExtras > 0 && <div className="summary-row"><span className="k">⏱️ {horasExtras}h extra(s)</span><span className="v">{fmtMoney(horasExtras * (c.precoHoraExtra || 0))}</span></div>}
                   <hr style={{ border: 0, borderTop: '1px solid var(--border)', margin: '10px 0' }} />
                   <div className="summary-row" style={{ opacity: 0.8 }}><span className="k">Total da locação</span><span className="v">{fmtMoney(total)}</span></div>
-                  <div className="summary-row" style={{ color: 'var(--pool-deep)', fontWeight: 600 }}><span className="k">Sinal de Agendamento (50%)</span><span className="v">R$ {fmtMoneyFull(valorSinal)}</span></div>
-                  <div className="summary-row" style={{ fontSize: 13, opacity: 0.7 }}><span className="k">Restante (no dia da festa)</span><span className="v">R$ {fmtMoneyFull(valorRestante)}</span></div>
+                  {cobrancaTotal ? (
+                    <div className="summary-row" style={{ color: 'var(--pool-deep)', fontWeight: 600 }}><span className="k">Valor Total (100% no PIX)</span><span className="v">R$ {fmtMoneyFull(valorSinal)}</span></div>
+                  ) : (
+                    <>
+                      <div className="summary-row" style={{ color: 'var(--pool-deep)', fontWeight: 600 }}><span className="k">Sinal de Agendamento (50%)</span><span className="v">R$ {fmtMoneyFull(valorSinal)}</span></div>
+                      <div className="summary-row" style={{ fontSize: 13, opacity: 0.7 }}><span className="k">Restante (no dia da festa)</span><span className="v">R$ {fmtMoneyFull(valorRestante)}</span></div>
+                    </>
+                  )}
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10 }}>
                   <button className="btn-secondary" onClick={prev}>← Voltar</button>
-                  <button className="btn-block success" style={{ flex: 1, maxWidth: 280 }} onClick={createBooking}>✓ Reservar e Pagar Sinal</button>
+                  <button className="btn-block success" style={{ flex: 1, maxWidth: 280 }} onClick={createBooking}>
+                    {cobrancaTotal ? '✓ Reservar e Pagar Total' : '✓ Reservar e Pagar Sinal'}
+                  </button>
                 </div>
               </>
             );
@@ -752,7 +764,8 @@ export default function BookingPage() {
 
           {/* STEP 6: PIX */}
           {step === 6 && createdBooking && (() => {
-            const valorSinal = createdBooking.total / 2;
+            const cobrancaTotal = c.checkoutPixType === 'total';
+            const valorSinal = cobrancaTotal ? createdBooking.total : createdBooking.total / 2;
             const assinado = createdBooking.contrato && createdBooking.contrato.assinado;
 
             if (!assinado) {
@@ -789,7 +802,7 @@ export default function BookingPage() {
                   <button className="btn-secondary" style={{ padding: '8px 12px', fontSize: 12 }} onClick={() => downloadContract(createdBooking)}>Ver PDF</button>
                 </div>
 
-                <div className="pix-warn">⚠️ <strong>Valor do PIX:</strong> Transfira exatamente o sinal de <strong>R$ {fmtMoneyFull(valorSinal)}</strong> para confirmar o agendamento.</div>
+                <div className="pix-warn">⚠️ <strong>Valor do PIX:</strong> Transfira exatamente {cobrancaTotal ? 'o valor total de' : 'o sinal de'} <strong>R$ {fmtMoneyFull(valorSinal)}</strong> para confirmar o agendamento.</div>
                 {(state.pix.qrBase64 || state.pix.qrUrl) ? (
                   <div className="pix-qr"><img src={state.pix.qrBase64 || state.pix.qrUrl} alt="QR Code PIX" /><div style={{ fontSize: 12, color: 'var(--mute)', marginTop: 8 }}>Aponte a câmera do seu app bancário</div></div>
                 ) : <div className="empty-state" style={{ marginBottom: 14 }}><div className="ic">📱</div>QR Code não cadastrado. Use a chave PIX abaixo.</div>}
@@ -805,7 +818,7 @@ export default function BookingPage() {
                   <div className="summary-row"><span className="k">Reserva</span><span className="v" style={{ fontFamily: 'var(--font-mono)' }}>{createdBooking.id}</span></div>
                   <div className="summary-row"><span className="k">Data</span><span className="v">{dateShort(createdBooking.data)}</span></div>
                   <div className="summary-row"><span className="k">Total</span><span className="v">{fmtMoney(createdBooking.total)}</span></div>
-                  <div className="summary-total" style={{ color: 'var(--pool-deep)' }}><span className="k">Pagar Sinal (50%)</span><span className="v">R$ {fmtMoneyFull(valorSinal)}</span></div>
+                  <div className="summary-total" style={{ color: 'var(--pool-deep)' }}><span className="k">{cobrancaTotal ? 'Pagar Total' : 'Pagar Sinal (50%)'}</span><span className="v">R$ {fmtMoneyFull(valorSinal)}</span></div>
                 </div>
                 <div style={{ background: 'var(--bg)', borderRadius: 12, padding: 14, marginBottom: 14, fontSize: 13, color: 'var(--ink-soft)' }}>⚠ Após o PIX, envie o comprovante e o contrato pelo WhatsApp. A data será liberada após validação.</div>
                 

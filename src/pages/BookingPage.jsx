@@ -549,7 +549,10 @@ export default function BookingPage() {
     }, 500);
   };
 
-  const diaOcupado = date ? state.bookings.some(b => b.data === date && b.status !== 'cancelled') : false;
+  const diaOcupado = date ? (
+    state.bookings.some(b => b.data === date && b.status !== 'cancelled') ||
+    state.blockedDates.includes(date)
+  ) : false;
 
   const slots = [
     { id: 'manha', nome: 'Diurno', tempo: `${c.horaInicioManha} às ${c.horaFimManha}`, desc: 'Festa durante o dia' },

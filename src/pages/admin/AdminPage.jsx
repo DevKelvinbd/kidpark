@@ -34,7 +34,6 @@ export default function AdminPage() {
 
   // All hooks must be declared before any conditional return (React rules of hooks)
   const galFileRef = useRef(null);
-  const pixQrRef = useRef(null);
   const [cfgState, setCfg] = useState({ ...state.config });
   const [pixState, setPixState] = useState({ ...state.pix });
   const [blockDate, setBlockDate] = useState('');
@@ -98,18 +97,20 @@ export default function AdminPage() {
   const deleteItem = id => { if (confirm('Excluir este item?')) { dispatch({ type: 'DELETE_ITEM', payload: id }); toast('Item excluído', 'success'); } };
 
   // Gallery
-  const addGallery = async () => {
-    const url = prompt('Cole uma URL de imagem/vídeo (ou deixe vazio para upload):');
-    if (url === null) return;
-    if (url.trim()) {
+  const addGalleryLink = () => {
+    const url = prompt('Cole uma URL de imagem/vídeo:');
+    if (url && url.trim()) {
       const tipo = /\.(mp4|webm|mov)$/i.test(url) ? 'video' : 'image';
       dispatch({ type: 'ADD_GALLERY', payload: { tipo, url: url.trim() } });
       toast('Adicionado ✓', 'success');
-    } else { galFileRef.current?.click(); }
+    }
+  };
+  const triggerGalUpload = () => {
+    galFileRef.current?.click();
   };
   const handleGalUpload = async e => {
     const f = e.target.files[0]; if (!f) return;
-    if (f.size > 2 * 1024 * 1024) { toast('Máximo 2MB', 'error'); return; }
+    if (f.size > 5 * 1024 * 1024) { toast('Máximo 5MB', 'error'); return; }
     const b64 = await fileToBase64(f);
     dispatch({ type: 'ADD_GALLERY', payload: { tipo: f.type.startsWith('video') ? 'video' : 'image', url: b64 } });
     toast('Enviado ✓', 'success');
@@ -120,14 +121,8 @@ export default function AdminPage() {
   const saveCfg = () => { dispatch({ type: 'UPDATE_CONFIG', payload: cfgState }); toast('Configurações salvas ✓', 'success'); };
 
   // PIX save
-  const savePix = async () => {
-    let qrBase64 = pixState.qrBase64;
-    if (pixQrRef.current?.files?.[0]) {
-      const f = pixQrRef.current.files[0];
-      if (f.size > 1024 * 1024) { toast('QR muito grande (máx 1MB)', 'error'); return; }
-      qrBase64 = await fileToBase64(f);
-    }
-    dispatch({ type: 'UPDATE_PIX', payload: { ...pixState, qrBase64 } });
+  const savePix = () => {
+    dispatch({ type: 'UPDATE_PIX', payload: pixState });
     toast('PIX salvo ✓', 'success');
   };
 
@@ -537,9 +532,25 @@ export default function AdminPage() {
                   </div>
                   <div className="field"><label>Categoria</label><select value={editItem.categoria} onChange={e => setEditItem({ ...editItem, categoria: e.target.value })}><option value="pacote">📦 Pacote</option><option value="espaco">🏊 Espaço</option><option value="equipamento">🔌 Equipamento</option><option value="extra">✨ Extra</option></select></div>
                   <div className="field">
-                    <label>Imagem (URL ou arquivo)</label>
-                    <input value={editItem.imagemUrl} onChange={e => setEditItem({ ...editItem, imagemUrl: e.target.value })} placeholder="https://… ou envie abaixo" />
-                    <input type="file" accept="image/*" style={{ marginTop: 8 }} onChange={async e => { const f = e.target.files[0]; if (!f) return; if (f.size > 1.5 * 1024 * 1024) { toast('Máx 1.5MB', 'error'); return; } const b64 = await fileToBase64(f); setEditItem(prev => ({ ...prev, imagemUrl: b64 })); toast('Imagem carregada ✓', 'success'); }} />
+                    <label>Imagem do Item</label>
+                    {editItem.imagemUrl && (
+                      <div style={{ marginBottom: 10, display: 'flex', alignItems: 'center', gap: 10 }}>
+                        <img src={editItem.imagemUrl} style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: 8, border: '1px solid var(--line-strong)' }} alt="Preview" />
+                        <button type="button" className="btn btn-ghost" onClick={() => setEditItem({ ...editItem, imagemUrl: '' })} style={{ color: 'var(--coral)', fontSize: 13, padding: '4px 8px' }}>Remover imagem</button>
+                      </div>
+                    )}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                      <input type="file" accept="image/*" onChange={async e => {
+                        const f = e.target.files[0];
+                        if (!f) return;
+                        if (f.size > 5 * 1024 * 1024) { toast('Máx 5MB', 'error'); return; }
+                        const b64 = await fileToBase64(f);
+                        setEditItem(prev => ({ ...prev, imagemUrl: b64 }));
+                        toast('Imagem local carregada ✓', 'success');
+                      }} />
+                      <div style={{ fontSize: 12, color: 'var(--mute)' }}>Ou cole um link de imagem externa abaixo:</div>
+                      <input value={editItem.imagemUrl} onChange={e => setEditItem({ ...editItem, imagemUrl: e.target.value })} placeholder="https://…" />
+                    </div>
                   </div>
                   <div className="field"><label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}><input type="checkbox" checked={editItem.ativo} onChange={e => setEditItem({ ...editItem, ativo: e.target.checked })} style={{ width: 'auto' }} /> Disponível para reserva</label></div>
                 </>
@@ -553,7 +564,10 @@ export default function AdminPage() {
           <>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
               <div><div style={{ fontWeight: 700 }}>Galeria do topo</div><div style={{ fontSize: 13, color: 'var(--mute)' }}>As 3 primeiras aparecem na home.</div></div>
-              <button className="btn btn-primary" onClick={addGallery}>+ Adicionar</button>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <button className="btn btn-primary" onClick={triggerGalUpload}>+ Enviar Local</button>
+                <button className="btn btn-secondary" onClick={addGalleryLink}>+ Adicionar via Link</button>
+              </div>
             </div>
             <input type="file" ref={galFileRef} accept="image/*,video/*" style={{ display: 'none' }} onChange={handleGalUpload} />
             <div className="admin-list">
@@ -615,11 +629,26 @@ export default function AdminPage() {
               <div className="field"><label>Banco</label><input value={pixState.banco} onChange={e => setPixState({ ...pixState, banco: e.target.value })} placeholder="Nubank, Itaú…" /></div>
             </div>
             <div className="field">
-              <label>QR Code (URL ou upload)</label>
-              <input value={pixState.qrUrl} onChange={e => setPixState({ ...pixState, qrUrl: e.target.value })} placeholder="https://…" />
-              <input type="file" ref={pixQrRef} accept="image/*" style={{ marginTop: 8 }} />
+              <label>QR Code PIX</label>
+              {(pixState.qrBase64 || pixState.qrUrl) && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12, marginTop: 8 }}>
+                  <img src={pixState.qrBase64 || pixState.qrUrl} style={{ width: 100, height: 100, objectFit: 'contain', borderRadius: 8, border: '1px solid var(--line)' }} alt="QR Code Preview" />
+                  <button type="button" className="btn btn-ghost" onClick={() => setPixState({ ...pixState, qrBase64: '', qrUrl: '' })} style={{ color: 'var(--coral)', fontSize: 13, padding: '4px 8px' }}>Remover QR Code</button>
+                </div>
+              )}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <input type="file" accept="image/*" onChange={async e => {
+                  const f = e.target.files[0];
+                  if (!f) return;
+                  if (f.size > 5 * 1024 * 1024) { toast('QR muito grande (máx 5MB)', 'error'); return; }
+                  const b64 = await fileToBase64(f);
+                  setPixState(prev => ({ ...prev, qrBase64: b64 }));
+                  toast('QR Code local carregado ✓', 'success');
+                }} />
+                <div style={{ fontSize: 12, color: 'var(--mute)' }}>Ou cole a URL do QR Code abaixo:</div>
+                <input value={pixState.qrUrl} onChange={e => setPixState({ ...pixState, qrUrl: e.target.value })} placeholder="https://…" />
+              </div>
             </div>
-            {(pixState.qrBase64 || pixState.qrUrl) && <div style={{ textAlign: 'center', margin: '14px 0' }}><img src={pixState.qrBase64 || pixState.qrUrl} style={{ maxWidth: 160, borderRadius: 8, border: '1px solid var(--line)' }} /></div>}
             <button className="btn-block" onClick={savePix} style={{ marginTop: 14 }}>Salvar PIX</button>
           </>
         )}
@@ -636,7 +665,7 @@ export default function AdminPage() {
               </div>
               {state.blockedDates.length > 0 && (
                 <div style={{ marginTop: 12, display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                  {state.blockedDates.sort().map(d => (
+                  {[...state.blockedDates].sort().map(d => (
                     <span key={d} style={{ background: '#fff', border: '1px solid var(--line)', padding: '6px 12px', borderRadius: 999, fontSize: 12, fontFamily: 'var(--font-mono)' }}>
                       {dateShort(d)} <a href="#" onClick={e => { e.preventDefault(); dispatch({ type: 'REMOVE_BLOCKED_DATE', payload: d }); }} style={{ marginLeft: 6, color: 'var(--coral)', fontWeight: 700 }}>✕</a>
                     </span>

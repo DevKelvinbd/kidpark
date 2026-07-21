@@ -8,7 +8,8 @@ const PORT = process.env.PORT || 3002;
 const DB_PATH = path.join(__dirname, 'db.json');
 
 app.use(cors());
-app.use(express.json({ limit: '10mb' }));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 const DEFAULT_STATE = {
   config: {

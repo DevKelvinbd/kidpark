@@ -420,12 +420,6 @@ export default function AdminPage() {
     };
     inp.click();
   };
-  const resetAll = () => {
-    if (!confirm('Apagar TUDO e voltar aos dados de exemplo?')) return;
-    if (!confirm('Tem certeza absoluta?')) return;
-    dispatch({ type: 'RESET' });
-    toast('Tudo resetado', 'success');
-  };
 
   // Icon upload
   const uploadIcon = async (key, file) => {
@@ -839,7 +833,6 @@ export default function AdminPage() {
               <button className="btn-block" onClick={saveCfg}>Salvar configurações</button>
               <button className="btn-secondary" onClick={exportData}>⬇ Exportar dados</button>
               <button className="btn-secondary" onClick={importData}>⬆ Importar dados</button>
-              <button className="btn-danger" onClick={resetAll}>🔄 Resetar tudo</button>
             </div>
           </>
         )}

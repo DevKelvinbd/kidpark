@@ -370,3 +370,9 @@ a{color:inherit;text-decoration:none}
 .camera-tip {
   text-align: center; color: var(--mute); font-size: 12px; margin: 0 0 14px;
 }
+
+/* Spin animation for loading indicators */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

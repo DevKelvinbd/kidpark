@@ -7,6 +7,7 @@ import { Icon } from '../../components/Icon';
 import { supabase } from '../../lib/supabase';
 import Modal from '../../components/Modal';
 import { fmtMoney, fmtMoneyFull, dateBR, dateShort, slotLabel, uid, todayStr, fileToBase64 } from '../../lib/utils';
+import { uploadImage } from '../../lib/uploadService';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 
@@ -31,6 +32,7 @@ export default function AdminPage() {
   const [editModal, setEditModal] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [viewModal, setViewModal] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   // All hooks must be declared before any conditional return (React rules of hooks)
   const galFileRef = useRef(null);
@@ -110,10 +112,18 @@ export default function AdminPage() {
   };
   const handleGalUpload = async e => {
     const f = e.target.files[0]; if (!f) return;
-    if (f.size > 5 * 1024 * 1024) { toast('Máximo 5MB', 'error'); return; }
-    const b64 = await fileToBase64(f);
-    dispatch({ type: 'ADD_GALLERY', payload: { tipo: f.type.startsWith('video') ? 'video' : 'image', url: b64 } });
-    toast('Enviado ✓', 'success');
+    if (f.size > 10 * 1024 * 1024) { toast('Máximo 10MB', 'error'); return; }
+    setUploading(true);
+    try {
+      const url = await uploadImage(f, 'gallery');
+      dispatch({ type: 'ADD_GALLERY', payload: { tipo: f.type.startsWith('video') ? 'video' : 'image', url } });
+      toast('Enviado ✓', 'success');
+    } catch (err) {
+      console.error('Gallery upload error:', err);
+      toast('Erro ao enviar imagem: ' + err.message, 'error');
+    } finally {
+      setUploading(false);
+    }
     e.target.value = '';
   };
 
@@ -419,10 +429,18 @@ export default function AdminPage() {
 
   // Icon upload
   const uploadIcon = async (key, file) => {
-    if (file.size > 500 * 1024) { toast('Máximo 500KB por ícone', 'error'); return; }
-    const url = await fileToBase64(file);
-    dispatch({ type: 'UPDATE_ICONES', payload: { [key]: { ...ic[key], url } } });
-    toast('Ícone atualizado ✓', 'success');
+    if (file.size > 2 * 1024 * 1024) { toast('Máximo 2MB por ícone', 'error'); return; }
+    setUploading(true);
+    try {
+      const url = await uploadImage(file, 'icons');
+      dispatch({ type: 'UPDATE_ICONES', payload: { [key]: { ...ic[key], url } } });
+      toast('Ícone atualizado ✓', 'success');
+    } catch (err) {
+      console.error('Icon upload error:', err);
+      toast('Erro ao enviar ícone: ' + err.message, 'error');
+    } finally {
+      setUploading(false);
+    }
   };
   const resetIcon = key => {
     if (!confirm('Voltar ao emoji padrão?')) return;
@@ -457,6 +475,25 @@ export default function AdminPage() {
           </div>
         </div>
       </div>
+
+      {/* Sync Error Banner */}
+      {state.syncError && (
+        <div style={{ background: '#FEF3C7', color: '#78350F', padding: '12px 16px', borderRadius: 10, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 10, border: '1px solid #FCD34D', fontSize: 13 }}>
+          <span style={{ fontSize: 18 }}>⚠️</span>
+          <span>{state.syncError}</span>
+        </div>
+      )}
+
+      {/* Upload Loading Overlay */}
+      {uploading && (
+        <div style={{ background: 'rgba(255,255,255,0.9)', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 9999, display: 'grid', placeItems: 'center' }}>
+          <div style={{ textAlign: 'center', padding: 32 }}>
+            <div style={{ fontSize: 40, marginBottom: 12, animation: 'spin 1s linear infinite' }}>⏳</div>
+            <div style={{ fontWeight: 700, fontSize: 16 }}>Enviando imagem...</div>
+            <div style={{ fontSize: 13, color: 'var(--mute)', marginTop: 4 }}>Comprimindo e salvando</div>
+          </div>
+        </div>
+      )}
 
       <div className="wrap" style={{ paddingTop: 32, paddingBottom: 64 }}>
         {/* Tabs */}
@@ -543,10 +580,18 @@ export default function AdminPage() {
                       <input type="file" accept="image/*" onChange={async e => {
                         const f = e.target.files[0];
                         if (!f) return;
-                        if (f.size > 5 * 1024 * 1024) { toast('Máx 5MB', 'error'); return; }
-                        const b64 = await fileToBase64(f);
-                        setEditItem(prev => ({ ...prev, imagemUrl: b64 }));
-                        toast('Imagem local carregada ✓', 'success');
+                        if (f.size > 10 * 1024 * 1024) { toast('Máx 10MB', 'error'); return; }
+                        setUploading(true);
+                        try {
+                          const url = await uploadImage(f, 'items');
+                          setEditItem(prev => ({ ...prev, imagemUrl: url }));
+                          toast('Imagem carregada ✓', 'success');
+                        } catch (err) {
+                          console.error('Item image upload error:', err);
+                          toast('Erro ao enviar imagem: ' + err.message, 'error');
+                        } finally {
+                          setUploading(false);
+                        }
                       }} />
                       <div style={{ fontSize: 12, color: 'var(--mute)' }}>Ou cole um link de imagem externa abaixo:</div>
                       <input value={editItem.imagemUrl} onChange={e => setEditItem({ ...editItem, imagemUrl: e.target.value })} placeholder="https://…" />
@@ -640,10 +685,18 @@ export default function AdminPage() {
                 <input type="file" accept="image/*" onChange={async e => {
                   const f = e.target.files[0];
                   if (!f) return;
-                  if (f.size > 5 * 1024 * 1024) { toast('QR muito grande (máx 5MB)', 'error'); return; }
-                  const b64 = await fileToBase64(f);
-                  setPixState(prev => ({ ...prev, qrBase64: b64 }));
-                  toast('QR Code local carregado ✓', 'success');
+                  if (f.size > 10 * 1024 * 1024) { toast('QR muito grande (máx 10MB)', 'error'); return; }
+                  setUploading(true);
+                  try {
+                    const url = await uploadImage(f, 'pix');
+                    setPixState(prev => ({ ...prev, qrBase64: url }));
+                    toast('QR Code carregado ✓', 'success');
+                  } catch (err) {
+                    console.error('PIX QR upload error:', err);
+                    toast('Erro ao enviar QR Code: ' + err.message, 'error');
+                  } finally {
+                    setUploading(false);
+                  }
                 }} />
                 <div style={{ fontSize: 12, color: 'var(--mute)' }}>Ou cole a URL do QR Code abaixo:</div>
                 <input value={pixState.qrUrl} onChange={e => setPixState({ ...pixState, qrUrl: e.target.value })} placeholder="https://…" />

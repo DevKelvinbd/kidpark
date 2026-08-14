@@ -6,6 +6,7 @@ const LS_KEY = 'kidpark_v2';
 
 const DEFAULT_STATE = {
   loading: true,
+  syncError: null,
   config: {
     brandName: 'Kid Park',
     checkoutPixType: 'sinal',
@@ -92,6 +93,7 @@ function reducer(state, action) {
     case 'ADD_BLOCKED_DATE': return { ...state, blockedDates: [...state.blockedDates, action.payload] };
     case 'REMOVE_BLOCKED_DATE': return { ...state, blockedDates: state.blockedDates.filter(d => d !== action.payload) };
     case 'UPDATE_ICONES': return { ...state, config: { ...state.config, icones: { ...state.config.icones, ...action.payload } } };
+    case 'SET_SYNC_ERROR': return { ...state, syncError: action.payload };
     case 'RESET': return { ...DEFAULT_STATE, loading: false };
     default: return state;
   }
@@ -230,44 +232,87 @@ export function StoreProvider({ children }) {
           }
         });
       } catch (err) {
-        console.error("Failed to fetch from Supabase, loading defaults:", err);
+        console.error("Failed to fetch from Supabase, trying localStorage backup:", err);
+        // Try localStorage backup before falling back to defaults
+        try {
+          const localSettings = localStorage.getItem('kp_settings');
+          const localBookings = localStorage.getItem('kp_bookings');
+          if (localSettings) {
+            const parsed = JSON.parse(localSettings);
+            dispatch({
+              type: 'SET_STATE',
+              payload: {
+                config: parsed.config || DEFAULT_STATE.config,
+                pix: parsed.pix || DEFAULT_STATE.pix,
+                blockedDates: parsed.blockedDates || [],
+                gallery: parsed.gallery || [],
+                items: parsed.items || DEFAULT_STATE.items,
+                bookings: localBookings ? JSON.parse(localBookings) : [],
+                loading: false,
+                syncError: 'Carregado do backup local. Sem conexão com servidor.'
+              }
+            });
+            return;
+          }
+        } catch (lsErr) {
+          console.error('localStorage backup also failed:', lsErr);
+        }
         dispatch({ type: 'SET_STATE', payload: { ...DEFAULT_STATE, loading: false } });
       }
     }
     loadFromSupabase();
   }, []);
 
-  // Save Settings state back to Supabase automatically when modified
+  // Save Settings state back to Supabase automatically when modified (with debounce)
   useEffect(() => {
     if (state.loading) return;
 
-    const syncSettings = async () => {
-      if (!supabase) {
-        localStorage.setItem('kp_settings', JSON.stringify({
-          config: state.config,
-          pix: state.pix,
-          blockedDates: state.blockedDates,
-          gallery: state.gallery,
-          items: state.items
-        }));
-        return;
-      }
-
-      const { error } = await supabase
-        .from('kp_settings')
-        .update({
-          config: state.config,
-          pix: state.pix,
-          blocked_dates: state.blockedDates,
-          gallery: state.gallery,
-          items: state.items
-        })
-        .eq('id', 1);
-      if (error) {
-        console.error("Failed to sync settings to Supabase:", error);
-      }
+    // Always save to localStorage immediately as backup (safety net)
+    const localBackup = {
+      config: state.config,
+      pix: state.pix,
+      blockedDates: state.blockedDates,
+      gallery: state.gallery,
+      items: state.items
     };
-    syncSettings();
+    try {
+      localStorage.setItem('kp_settings', JSON.stringify(localBackup));
+    } catch (lsErr) {
+      console.warn('localStorage backup failed (possible quota exceeded):', lsErr);
+    }
+
+    if (!supabase) return;
+
+    // Debounce Supabase sync (1 second) to avoid rapid writes
+    const timer = setTimeout(async () => {
+      try {
+        const { error } = await supabase
+          .from('kp_settings')
+          .update({
+            config: state.config,
+            pix: state.pix,
+            blocked_dates: state.blockedDates,
+            gallery: state.gallery,
+            items: state.items
+          })
+          .eq('id', 1);
+        if (error) {
+          console.error("Failed to sync settings to Supabase:", error);
+          // Dispatch sync error so the UI can show a warning
+          dispatch({ type: 'SET_SYNC_ERROR', payload: 'Erro ao sincronizar com o servidor. Suas alterações estão salvas localmente.' });
+        } else {
+          // Clear any previous sync error on success
+          if (state.syncError) {
+            dispatch({ type: 'SET_SYNC_ERROR', payload: null });
+          }
+        }
+      } catch (err) {
+        console.error("Sync exception:", err);
+        dispatch({ type: 'SET_SYNC_ERROR', payload: 'Falha de conexão ao salvar. Alterações salvas localmente.' });
+      }
+    }, 1000);
+
+    return () => clearTimeout(timer);
   }, [state.config, state.pix, state.blockedDates, state.gallery, state.items, state.loading]);
 
   const value = { state, dispatch };
